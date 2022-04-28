@@ -158,6 +158,7 @@ public:
 
     double GetRandom(int min, int max) {
         return rand() % (max - min) - min;
+        //return rand() % max + min;
     }
 
 };
@@ -528,7 +529,7 @@ private:
                     ++countNegative;
                 }
                 else
-                    SetConsoleTextAttribute(handleConsole, Red);
+                    SetConsoleTextAttribute(handleConsole, White);
 
                 if (isPrint)
                     cout << setw(myMatrix.STR_WIDTH) << item << " ";
@@ -537,6 +538,17 @@ private:
 
             if (isPrint)
                 cout << endl;
+        }
+
+        if (isPrint) {
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << endl << "Всего элементов в массиве: " << col * row << endl;
+
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << "Положительных элементов в массиве: " << countPositive << endl;
+
+            SetConsoleTextAttribute(handleConsole, Red);
+            cout << "Отрицательных элементов в массиве: " << countNegative << endl << endl;
         }
 
         return countNegative > countPositive;
