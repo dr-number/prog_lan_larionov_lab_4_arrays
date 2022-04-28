@@ -93,18 +93,6 @@ public:
         return result;
     }
 
-    int InputIntData(string text, int min, int max, int defaultValue, bool isNegative) {
-
-        string str = GetLine();
-
-        if (str == "\n")
-            return defaultValue;
-
-        return InputIntData(text, min, max, isNegative);
-    }
-
-
-
 };
 
 class MyQuestion {
@@ -227,13 +215,12 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Каждая деталь должна последовательно пройти обработку на каждом из 3 станков." << endl;
-        cout << "Вычислять, сколько времени займет обработка всех деталей." << endl << endl;
+        cout << "Поменять местали максимальный и минимальный элемент массива." << endl << endl;
 
         MyArray myArray = *new MyArray();
         MyInput myInput = *new MyInput();
 
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве? :", myArray.MIN_VALUE, myArray.MAX_VALUE, myArray.DEFAULT_COUNT_VALUE);
+        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_VALUE, myArray.MAX_VALUE, false);
 
         vector<int> arr = myArray.CreateArray(size);
 
@@ -271,10 +258,7 @@ public:
 
             cout << "[" << i << "] " << arr[i] << info << endl;
         }
-
-
-        
-        
+ 
     }
 
 };
