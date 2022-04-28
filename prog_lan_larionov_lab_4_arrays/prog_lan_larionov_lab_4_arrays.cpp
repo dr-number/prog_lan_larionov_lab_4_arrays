@@ -154,7 +154,7 @@ public:
 class MyRandom {
 
 public:
-    double MIN_RANDOM = 10, MAX_RANDOM = 1000;
+    const double MIN_RANDOM = 10, MAX_RANDOM = 1000;
 
     double GetRandom(int min, int max) {
         return rand() % (max - min) - min;
@@ -269,6 +269,8 @@ public:
     int const MIN_ROW = 5;
     int const MAX_ROW = 10000;
 
+    int const STR_WIDTH = 4;
+
     vector <vector <int>> CreateRandomArray(int n, int m, int minValue, int maxValue) {
 
         vector <vector <int>> arr(n, vector <int>(m));
@@ -318,6 +320,16 @@ public:
         int m = myInput.InputIntData("Сколько столбцов должно быть в массиве?: ", MIN_COL, MAX_COL);
 
         return CreateArray(n, m);
+    }
+
+    void printHeader(vector <vector <int>> arr) {
+
+        int countCol = arr[0].size();
+
+        for (int j = 0; j < countCol; ++j)
+            cout << setw(STR_WIDTH) << "[" << j << "] ";
+
+        cout << endl;
     }
 
 };
@@ -483,7 +495,71 @@ public:
 };
 
 class Task36 {
+private:
+    bool isNegativeMatrix(vector <vector <int>> matrix, bool isPrint = true) {
 
+        int col = matrix[0].size();
+        int row = matrix.size();
+
+        int countNegative = 0;
+        int countPositive = 0;
+
+        int item;
+
+        MyMatrix myMatrix = *new MyMatrix();
+
+        for (int i = 0; i < row; ++i) {
+
+            if (isPrint) {
+                SetConsoleTextAttribute(handleConsole, Yellow);
+                cout << "[" << i << "] " << setw(myMatrix.STR_WIDTH);
+            }
+
+            for (int j = 0; j < col; ++j) {
+
+                item = matrix[i][j];
+
+                if (item > 0) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    ++countPositive;
+                }
+                else if (item < 0) {
+                    SetConsoleTextAttribute(handleConsole, Red);
+                    ++countNegative;
+                }
+                else
+                    SetConsoleTextAttribute(handleConsole, Red);
+
+                if (isPrint)
+                    cout << setw(myMatrix.STR_WIDTH) << item << " ";
+
+            }
+
+            if (isPrint)
+                cout << endl;
+        }
+
+        return countNegative > countPositive;
+
+    }
+
+public:
+    void Init() {
+
+        SetConsoleTextAttribute(handleConsole, White);
+        cout << "В матрице заменить все положительные элементы нулями," << endl;
+        cout << "если количество отрицательных элементов окажется больше, чем количество положительных элементов." << endl << endl;
+
+        MyMatrix myMatrix = *new MyMatrix();
+        vector <vector <int>> matrix = myMatrix.CreateArray();
+        
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходная матрица:" << endl << endl;
+
+        myMatrix.printHeader(matrix);
+        isNegativeMatrix(matrix, true);
+
+    }
 };
 
 
@@ -508,6 +584,9 @@ int main()
         cout << "6)	Поменять местали максимальный и минимальный элемент массива." << endl << endl;
 
         cout << "26) Поменять местали указанные элементы массива." << endl << endl;
+
+        cout << "36) В матрице заменить все положительные элементы нулями," << endl;
+        cout << "если количество отрицательных элементов окажется больше, чем количество положительных элементов." << endl << endl;
 
         cout << endl << "Для выхода введите \"0\": ";
 
