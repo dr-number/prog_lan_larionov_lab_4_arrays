@@ -71,7 +71,47 @@ public:
         return result;
     }
 
-    int InputIntData(string text, int min, int max, bool isNegative) {
+    int InputIndex(string text, int max) {
+
+        string xStr = "";
+        double x = 0, result = 0;
+        bool isNumber = true;
+
+        while (true) {
+
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << text;
+
+            xStr = GetLine();
+
+            try {
+                result = stoi(xStr.c_str());
+                isNumber = true;
+            }
+            catch (...) {
+                isNumber = false;
+            }
+
+            if (!isNumber) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << endl << xStr + " - не число!" << endl << endl;
+            }
+            else if (result < 0) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << endl << "Число не должно быть меньше нуля!" << endl << endl;
+            }
+            else if (result > max) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << endl << "Число должно лежать в промежутке [0; " << max << "]!" << endl << endl;
+            }
+            else
+                break;
+        }
+
+        return result;
+    }
+
+    int InputIntData(string text, int min, int max, bool isNegative = false) {
 
         double result;
 
@@ -82,7 +122,7 @@ public:
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << "Число должно быть целым!" << endl << endl;
             }
-            else if (result < min || result > max) {
+            else if (!isNegative && (result < min || result > max)) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << "Число должно лежать в промежутке [" << min << "; " << max << "]!" << endl << endl;
             }
@@ -146,7 +186,7 @@ public:
         MyInput myInput = *new MyInput();
 
         for (int i = 0; i < n; ++i)
-            arr.push_back(myInput.InputIntData("Введите целое число (" + to_string(i + 1) + "из" + to_string(n) + "): ", minValue, maxValue, true));
+            arr.push_back(myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(n) + "): ", minValue, maxValue, true));
 
         return arr;
     }
@@ -165,6 +205,16 @@ public:
 
     vector <int> CreateArray(int n) {
         return CreateArray(n, MIN_VALUE, MAX_VALUE);
+    }
+
+    vector <int> CreateArray() {
+
+        MyInput myInput = *new MyInput();
+        MyArray myArray = *new MyArray();
+
+        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_VALUE, myArray.MAX_VALUE);
+
+        return myArray.CreateArray(size);
     }
 
     void PrintArray(vector <int> arr) {
@@ -218,11 +268,9 @@ public:
         cout << "Поменять местали максимальный и минимальный элемент массива." << endl << endl;
 
         MyArray myArray = *new MyArray();
-        MyInput myInput = *new MyInput();
+        vector<int> arr = myArray.CreateArray();
 
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_VALUE, myArray.MAX_VALUE, false);
-
-        vector<int> arr = myArray.CreateArray(size);
+        int size = arr.size();
 
         int indexMinElem = myArray.GetIndexMinElem(arr);
         int indexMaxElem = myArray.GetIndexMaxElem(arr);
@@ -231,7 +279,7 @@ public:
 
         if (isEqal) {
             SetConsoleTextAttribute(handleConsole, Blue);
-            cout << "Все элементы массива одинаковы!" << endl;
+            cout << "Все элементы массива одинаковы!" << endl << endl;
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
@@ -256,11 +304,117 @@ public:
                 }
             }
 
-            cout << "[" << i << "] " << arr[i] << info << endl;
+            cout << "[" << i << "] " << arr[i] << info << endl; //форматированный вывод
+        }
+
+        if (!isEqal) {
+
+            int item = 0;
+            SetConsoleTextAttribute(handleConsole, Blue);
+            cout << endl << "Преобразованный массив:" << endl;
+
+            for (int i = 0; i < size; ++i) {
+
+                if (i == indexMinElem) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    item = arr[indexMaxElem];
+                    info = " - максимальный элемент";
+                }
+                else if (i == indexMaxElem) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    item = arr[indexMinElem];
+                    info = " - минимальный элемент";
+                }
+                else {
+                    SetConsoleTextAttribute(handleConsole, Yellow);
+                    info = "";
+                    item = arr[i];
+                }
+
+                cout << "[" << i << "] " << item << info << endl;
+            }
         }
  
     }
 
+};
+
+class Task26 {
+public:
+    void Init() {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Поменять местали указанные элементы массива." << endl << endl;
+
+        MyArray myArray = *new MyArray();
+        vector<int> arr = myArray.CreateArray();
+
+        int size = arr.size();
+        MyInput myInput = *new MyInput();
+
+        int index1, index2;
+
+        while (true) {
+
+            index1 = myInput.InputIndex("Введите индекс №1: ", size - 1);
+            index2 = myInput.InputIndex("Введите индекс №2: ", size - 1);
+
+            if (index1 == index2) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << "Индексы не должны совпадать!" << endl << endl;
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, White);
+                break;
+            }
+            
+        }
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << endl << "Исходный массив:" << endl;
+
+        SetConsoleTextAttribute(handleConsole, White);
+
+        for (int i = 0; i < size; ++i) {
+
+            if (i == index1 || i == index2) 
+                SetConsoleTextAttribute(handleConsole, Green);
+            else
+                SetConsoleTextAttribute(handleConsole, White);
+
+            cout << "[" << i << "] " << arr[i] << endl; //форматированный вывод
+        }
+
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << endl << "Поменять местали элементы массива под индексами " << index1 << " и " << index2 << endl << endl;
+        cout << endl << "Преобразованный массив:" << endl;
+
+        SetConsoleTextAttribute(handleConsole, White);
+
+        int item;
+
+        for (int i = 0; i < size; ++i) {
+
+            if (i == index1) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                item = arr[index2];
+            }
+            else if (i == index2) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                item = arr[index1];
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, White);
+                item = arr[i];
+            }
+
+            cout << "[" << i << "] " << item << endl; //форматированный вывод
+        }
+
+    }
 };
 
 
@@ -284,6 +438,7 @@ int main()
         cout << "\nВведите номер задачи" << endl;
         cout << "6)	Поменять местали максимальный и минимальный элемент массива." << endl << endl;
 
+        cout << "26) Поменять местали указанные элементы массива." << endl << endl;
 
         cout << endl << "Для выхода введите \"0\": ";
 
@@ -296,7 +451,11 @@ int main()
         else if (select == "16") {
             Task16 task16 = *new Task16();
             task16.Init();
-        }
+        }*/
+         else if (select == "26") {
+            Task26 task26 = *new Task26();
+            task26.Init();
+        }/*
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
