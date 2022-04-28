@@ -211,13 +211,9 @@ public:
     }
 
     vector <int> CreateArray() {
-
         MyInput myInput = *new MyInput();
-        MyArray myArray = *new MyArray();
-
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_COUNT, myArray.MAX_COUNT);
-
-        return myArray.CreateArray(size);
+        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", MIN_COUNT, MAX_COUNT);
+        return CreateArray(size);
     }
 
     void PrintArray(vector <int> arr) {
@@ -256,6 +252,72 @@ public:
             }
 
         return index;
+    }
+
+};
+
+class MyMatrix {
+public:
+    int const MIN_VALUE = -10000;
+    int const MAX_VALUE = 10000;
+
+    int const DEFAULT_COUNT_VALUE = 50;
+
+    int const MIN_COL = 5;
+    int const MAX_COL = 10000;
+
+    int const MIN_ROW = 5;
+    int const MAX_ROW = 10000;
+
+    vector <vector <int>> CreateRandomArray(int n, int m, int minValue, int maxValue) {
+
+        vector <vector <int>> arr(n, vector <int>(m));
+        MyRandom myRandom = *new MyRandom();
+
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                arr[i][j] = myRandom.GetRandom(minValue, maxValue);
+
+        return arr;
+    }
+
+    vector <vector <int>> CreateInputArray(int n, int m, int minValue, int maxValue) {
+
+        vector <vector <int>> arr(n, vector <int>(m));
+        MyInput myInput = *new MyInput();
+
+        int size = m * n;
+
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(size) + "): ", minValue, maxValue, true);
+
+        return arr;
+    }
+
+    vector <vector <int>> CreateArray(int n, int m, int minValue, int maxValue) {
+
+        MyQuestion myQuestion = *new MyQuestion();
+
+        bool isRandomData = myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA);
+
+        if (isRandomData)
+            return CreateRandomArray(n, m, minValue, maxValue);
+
+        return CreateInputArray(n, m, minValue, maxValue);
+    }
+
+    vector <vector <int>> CreateArray(int n, int m) {
+        return CreateArray(n, m, MIN_VALUE, MAX_VALUE);
+    }
+
+    vector <vector <int>> CreateArray() {
+
+        MyInput myInput = *new MyInput();
+        int n = myInput.InputIntData("Сколько строк должно быть в массиве?: ", MIN_ROW, MAX_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве?: ", MIN_COL, MAX_COL);
+
+        return CreateArray(n, m);
     }
 
 };
@@ -420,6 +482,10 @@ public:
     }
 };
 
+class Task36 {
+
+};
+
 
 int main()
 {
@@ -458,11 +524,11 @@ int main()
          else if (select == "26") {
             Task26 task26 = *new Task26();
             task26.Init();
-        }/*
+        }
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
-        }
+        }/*
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
