@@ -169,6 +169,9 @@ public:
 
     int const DEFAULT_COUNT_VALUE = 50;
 
+    int const MIN_COUNT = 5;
+    int const MAX_COUNT = 10000;
+
     vector <int> CreateRandomArray(int n, int minValue, int maxValue) {
         
         vector <int> arr;
@@ -212,7 +215,7 @@ public:
         MyInput myInput = *new MyInput();
         MyArray myArray = *new MyArray();
 
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_VALUE, myArray.MAX_VALUE);
+        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", myArray.MIN_COUNT, myArray.MAX_COUNT);
 
         return myArray.CreateArray(size);
     }
@@ -390,7 +393,7 @@ public:
 
         SetConsoleTextAttribute(handleConsole, Yellow);
         cout << endl << "Поменять местали элементы массива под индексами " << index1 << " и " << index2 << endl << endl;
-        cout << endl << "Преобразованный массив:" << endl;
+        cout << "Преобразованный массив:" << endl;
 
         SetConsoleTextAttribute(handleConsole, White);
 
