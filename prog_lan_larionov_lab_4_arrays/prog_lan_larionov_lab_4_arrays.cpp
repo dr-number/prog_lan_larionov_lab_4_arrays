@@ -1035,13 +1035,9 @@ private:
 
                 if (i < vectorSize)
                     cout << setw(8) << Vector[i] << " | ";
-                else {
-                    SetConsoleTextAttribute(handleConsole, Black);
-                    cout << setw(8) << "        ";
-
-                    SetConsoleTextAttribute(handleConsole, White);
-                    cout << "      | ";
-                }
+                else 
+                    cout << setw(10) << "|";
+                
 
                 SetConsoleTextAttribute(handleConsole, White);
 
