@@ -933,18 +933,8 @@ private:
             int matrixCol = matrix[0].size();
             for (int j = 0; j < matrixCol; ++j) {
 
-                SetConsoleTextAttribute(handleConsole, White);
-                cout << matrix[i][j] * Vector[j];
-
-                if (j != matrixCol - 1) {
-                    SetConsoleTextAttribute(handleConsole, Yellow);
-                    cout << " + ";
-                }
-                else {
-                    SetConsoleTextAttribute(handleConsole, Blue);
-                    cout << " = ";
-                    result = GetTotal(matrix, Vector, i);
-                }
+                if (j == matrixCol - 1) 
+                     result = GetTotal(matrix, Vector, i);
 
             }
 
@@ -959,20 +949,18 @@ private:
             int sum = 0;
             for (int j = 0; j < matrixCol; ++j) {
 
-                SetConsoleTextAttribute(handleConsole, White);
                 sum += matrix[i][j] * vector[j];
 
-                if (j == matrixCol - 1) {
-                    SetConsoleTextAttribute(handleConsole, Green);
+                if (j == matrixCol - 1) 
                     cout << sum << endl;
-                }
+                
             }
 
             return sum;
         }
 
     public:
-        vector <int> getPrintMultiply(vector <vector <int>> matrix, vector <int> Vector) {
+        vector <int> getMultiply(vector <vector <int>> matrix, vector <int> Vector) {
 
             int matrixCol = matrix[0].size();
             int matrixRow = matrix.size();
@@ -983,78 +971,18 @@ private:
             if (vectorSize > row)
                 row = vectorSize;
 
-            int centerRow = row / 2;
 
-            for (int i = 0; i < row; ++i) {
-
-                cout << "| ";
-
-                for (int j = 0; j < matrixCol; ++j) {
-
-                    if (j != 0)
-                        cout << setw(8);
-
-                    if (i < matrixRow)
-                        cout << matrix[i][j] << " ";
-                    else
-                        cout << setw(8) << " ";
-
-                }
-
-                cout << "| ";
-
-                if (i == centerRow)
-                    cout << "X ";
-
-                SetConsoleTextAttribute(handleConsole, Green);
-
-                if (i == centerRow)
-                    cout << "|";
-                else
-                    cout << "  |";
-
-                if (i < vectorSize)
-                    cout << setw(8) << Vector[i] << " | ";
-                else {
-                    SetConsoleTextAttribute(handleConsole, Black);
-                    cout << setw(8) << "        ";
-
-                    SetConsoleTextAttribute(handleConsole, White);
-                    cout << "      | ";
-                }
-
-                SetConsoleTextAttribute(handleConsole, White);
-
-                cout << endl;
-
-            }
-
-            cout << endl;
             vector <int> result;
 
             for (int i = 0; i < matrixRow; ++i) {
 
-                SetConsoleTextAttribute(handleConsole, Green);
-                cout << "c" << (i + 1);
-
-                SetConsoleTextAttribute(handleConsole, Blue);
-                cout << " = ";
+               
 
                 for (int j = 0; j < matrixCol; ++j) {
 
-                    SetConsoleTextAttribute(handleConsole, Yellow);
-                    cout << matrix[i][j] << " * " << Vector[j];
-
-                    if (j != matrixCol - 1) {
-                        SetConsoleTextAttribute(handleConsole, Green);
-                        cout << " + ";
-                    }
-                    else {
-                        SetConsoleTextAttribute(handleConsole, Blue);
-                        cout << " = ";
-
+                    if (j == matrixCol - 1) 
                         result.push_back(Multiplication(matrix, Vector, i));
-                    }
+                    
                 }
             }
 
@@ -1062,6 +990,8 @@ private:
         }
 
     };
+
+
     class CalcPrint {
         private:
             int Multiplication(vector <vector <int>> matrix, vector <int> Vector, int i) {
@@ -1263,6 +1193,10 @@ public:
         if (isShowCalcProcess) {
             CalcPrint calcPrint = *new CalcPrint();
             result = calcPrint.getPrintMultiply(matrix, Vector);
+        }
+        else {
+            CalcHide calcHide = *new CalcHide();
+            result = calcHide.getMultiply(matrix, Vector);
         }
 
         cout << endl << "Результат произведения:" << endl;
