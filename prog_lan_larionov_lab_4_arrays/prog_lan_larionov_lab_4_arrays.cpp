@@ -707,34 +707,11 @@ public:
 };
 
 class Task46 {
-public:
-    void Init() {
-
-        SetConsoleTextAttribute(handleConsole, White);
-        cout << "Поменять местали максимальный и минимальный элементы матрицы." << endl;
-      
-        MyMatrix myMatrix = *new MyMatrix();
-        vector <vector <int>> matrix = myMatrix.CreateArray();
-
-        SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "\nИсходная матрица:" << endl << endl;
-
-        MyMatrix::interval coordMinMax = myMatrix.GetCoordinateMinMax(matrix);
-
-        MyMatrix::coordinate coordMin = coordMinMax.min;
-        MyMatrix::coordinate coordMax = coordMinMax.max;
-
-        bool isEqal = myMatrix.isQual(coordMin, coordMax);
-
-        if (isEqal) {
-            SetConsoleTextAttribute(handleConsole, Blue);
-            cout << "Все элементы массива одинаковы!" << endl << endl;
-        }
-
-        SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный массив:" << endl;
+private:
+    void printArray(vector <vector <int>> matrix, MyMatrix::coordinate coordMin, MyMatrix::coordinate coordMax, bool isEqal) {
 
         string info;
+        MyMatrix myMatrix = *new MyMatrix();
 
         myMatrix.printHeader(matrix);
 
@@ -763,18 +740,57 @@ public:
             }
 
             cout << endl;
-        
+
+        }
+    }
+public:
+    void Init() {
+
+        SetConsoleTextAttribute(handleConsole, White);
+        cout << "Поменять местали максимальный и минимальный элементы матрицы." << endl;
+      
+        MyMatrix myMatrix = *new MyMatrix();
+        vector <vector <int>> matrix = myMatrix.CreateArray();
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "\nИсходная матрица:" << endl << endl;
+
+        MyMatrix::interval coordMinMax = myMatrix.GetCoordinateMinMax(matrix);
+
+        MyMatrix::coordinate coordMin = coordMinMax.min;
+        MyMatrix::coordinate coordMax = coordMinMax.max;
+
+        bool isEqal = myMatrix.isQual(coordMin, coordMax);
+
+        if (isEqal) {
+            SetConsoleTextAttribute(handleConsole, Blue);
+            cout << "Все элементы массива одинаковы!" << endl << endl;
         }
 
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходный массив:" << endl;
+
+        printArray(matrix, coordMin, coordMax, isEqal);
+
         if (!isEqal) {
-
-
+            
+            int min = matrix[coordMin.n][coordMin.m];
+            int max = matrix[coordMax.n][coordMax.m];
 
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "\nМинимальный элемент массива:  [" << coordMin.n << "][" << coordMin.m << "] " << matrix[coordMin.n][coordMin.m] << endl;
+            cout << "\nМинимальный элемент массива:  [" << coordMin.n << "][" << coordMin.m << "] " << min << endl;
 
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "Максимальный элемент массива: [" << coordMax.n << "][" << coordMax.m << "] " << matrix[coordMax.n][coordMax.m] << endl;
+            cout << "Максимальный элемент массива: [" << coordMax.n << "][" << coordMax.m << "] " << max << endl;
+
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "\nПреобразованный массив:" << endl;
+
+            matrix[coordMin.n][coordMin.m] = max;
+            matrix[coordMax.n][coordMax.m] = min;
+
+            printArray(matrix, coordMax, coordMin, isEqal);
         }
 
         
