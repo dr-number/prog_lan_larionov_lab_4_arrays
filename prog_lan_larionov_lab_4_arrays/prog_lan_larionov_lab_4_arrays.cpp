@@ -233,11 +233,18 @@ public:
     }
 
     void PrintArray(vector <int> arr) {
-        
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         int size = arr.size();
 
-        for (int i = 0; i < size; ++i)
-            cout << "[" << i << "] " << arr[i] << endl;
+        for (int i = 0; i < size; ++i) {
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "[" << i << "] ";
+            
+            SetConsoleTextAttribute(handleConsole, White);
+            cout << arr[i] << endl;
+        }
     }
 
     int GetIndexMinElem(vector<int> arr) {
@@ -913,6 +920,11 @@ public:
 };
 
 class Task66 {
+private:
+    vector <int> getMultiply(vector <vector <int>> matrix, vector <int> vector) {
+        int matrixCol = matrix[0].size();
+        int matrixRow = matrix.size();
+    }
 public:
     void Init() {
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -923,8 +935,34 @@ public:
         cout << "вычислить элементы вектора Z как скалярное произведение строки матрицы A на вектор X" << endl << endl;
         
 
+        MyQuestion myQuestion = *new MyQuestion();
+
+        bool isRandom = myQuestion.isQuestion(myQuestion.QUESTION_RANDOM_DATA);
+
+        MyArray myArray = *new MyArray();
         MyMatrix myMatrix = *new MyMatrix();
-        vector <vector <int>> matrix = myMatrix.CreateArray();
+        MyInput myInput = *new MyInput();
+
+        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: ", myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: ", myMatrix.MIN_COL, myMatrix.MAX_COL);
+
+        vector <vector <int>> matrix;
+        vector <int> vector;
+
+        if (isRandom) {
+            matrix = myMatrix.CreateRandomArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            vector = myArray.CreateRandomArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+        }
+        else {
+            matrix = myMatrix.CreateInputArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            vector = myArray.CreateInputArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+        }
+
+        cout << "Матрица A:" << endl;
+        myMatrix.PrintMatrix(matrix);
+
+        cout << endl << "Вектор Х:" << endl;
+        myArray.PrintArray(vector);
     }
 };
 
