@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <cmath>
 #include <vector>
+#include <random>
 
 #define PI 3.14159265
 
@@ -157,7 +158,16 @@ public:
     const double MIN_RANDOM = 10, MAX_RANDOM = 1000;
 
     double GetRandom(int min, int max) {
-        return rand() % (max - min) - min;
+
+        random_device random_device; // Источник энтропии.
+        mt19937 generator(random_device()); // Генератор случайных чисел.
+
+        // (Здесь берется одно инициализирующее значение, можно брать больше)
+        uniform_int_distribution<> distribution(min, max); // Равномерное распределение [min, max]
+
+        return distribution(generator); 
+      
+        //return rand() % (max - min) - min;
         //return rand() % max + min;
     }
 
@@ -270,7 +280,7 @@ public:
     int const MIN_ROW = 5;
     int const MAX_ROW = 10000;
 
-    int const STR_WIDTH = 4;
+    int const STR_WIDTH = 8;
 
     vector <vector <int>> CreateRandomArray(int n, int m, int minValue, int maxValue) {
 
@@ -326,9 +336,10 @@ public:
     void printHeader(vector <vector <int>> arr) {
 
         int countCol = arr[0].size();
+        cout << "   ";
 
         for (int j = 0; j < countCol; ++j)
-            cout << setw(STR_WIDTH) << "[" << j << "] ";
+            cout << setw(6) << "[" << j << "] ";
 
         cout << endl;
     }
@@ -542,7 +553,7 @@ private:
 
         if (isPrint) {
             SetConsoleTextAttribute(handleConsole, White);
-            cout << endl << "Всего элементов в массиве: " << col * row << endl;
+            cout << "\nВсего элементов в массиве:         " << col * row << endl;
 
             SetConsoleTextAttribute(handleConsole, Green);
             cout << "Положительных элементов в массиве: " << countPositive << endl;
