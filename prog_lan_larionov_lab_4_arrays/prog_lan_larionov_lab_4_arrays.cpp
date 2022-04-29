@@ -912,6 +912,22 @@ public:
     }
 };
 
+class Task66 {
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+
+        cout << "ƒл€ матрицы A и вектора X" << endl;
+        cout << "вычислить элементы вектора Z как скал€рное произведение строки матрицы A на вектор X" << endl << endl;
+        
+
+        MyMatrix myMatrix = *new MyMatrix();
+        vector <vector <int>> matrix = myMatrix.CreateArray();
+    }
+};
+
 
 int main()
 {
@@ -942,6 +958,9 @@ int main()
 
         cout << "56) ¬ычислить L-норму матрицы" << endl << endl;
 
+        cout << "66) ƒл€ матрицы A и вектора X" << endl;
+        cout << "вычислить элементы вектора Z как скал€рное произведение строки матрицы A на вектор X" << endl << endl;
+
         cout << endl << "ƒл€ выхода введите \"0\": ";
 
         select = GetLine();
@@ -969,6 +988,10 @@ int main()
         else if (select == "56") {
             Task56 task56 = *new Task56();
             task56.Init();
+        }
+        else if (select == "66") {
+            Task66 task66 = *new Task66();
+            task66.Init();
         }
         else if (select == "0") {
             isGo = false;
