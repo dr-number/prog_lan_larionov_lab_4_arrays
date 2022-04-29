@@ -379,7 +379,7 @@ public:
         cout << endl;
     }
 
-    void PrintMatrix(vector <vector <int>> matrix) {
+    void PrintMatrix(vector <vector <int>> matrix, int selectRow = -1, int selectCol = -1) {
 
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, Yellow);
@@ -390,10 +390,24 @@ public:
         int row = matrix.size();
 
         for (int i = 0; i < row; ++i) {
-            cout << setw(MyMatrix::STR_WIDTH) << "[" << i << "] ";
 
-            for (int j = 0; j < col; ++j)
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "[" << i << "] ";
+
+            if(selectRow == i)
+                SetConsoleTextAttribute(handleConsole, Green);
+            else
+                SetConsoleTextAttribute(handleConsole, White);
+
+            for (int j = 0; j < col; ++j) {
+
+                if (selectCol == j)
+                    SetConsoleTextAttribute(handleConsole, Green);
+                else
+                    SetConsoleTextAttribute(handleConsole, White);
+
                 cout << setw(MyMatrix::STR_WIDTH) << matrix[i][j] << " ";
+            }
 
             cout << endl;
         }
@@ -809,29 +823,40 @@ public:
 
 class Task56 {
 private:
-    double AbsSum(vector <vector <int>> matrix, int j) {
+    struct number {
+    public:
+        int index;
+        double value;
+    };
+
+    double AbsSumRow(vector <vector <int>> matrix, int j) {
 
         double sum = 0;
         int row = matrix.size();
 
         for (int i = 0; i < row; ++i)
-            sum = abs(matrix[i][j]);
+            sum += abs(matrix[i][j]);
 
         return sum;
     }
 
-    double getLNorm(vector <vector <int>> matrix) {
+    number getLNormIndex(vector <vector <int>> matrix) {
 
         int col = matrix[0].size();
 
         double sum;
-        double max = AbsSum(matrix, 0);
+        number max;
+        
+        max.index = 0;
+        max.value = AbsSumRow(matrix, 0);
 
         for (int j = 1; j < col; ++j) {
-            sum = AbsSum(matrix, j);
+            sum = AbsSumRow(matrix, j);
 
-            if (sum > max)
-                max = sum;
+            if (sum > max.value) {
+                max.index = j;
+                max.value = sum;
+            }
         }
 
         return max;
@@ -848,7 +873,39 @@ public:
         MyMatrix myMatrix = *new MyMatrix();
         vector <vector <int>> matrix = myMatrix.CreateArray();
 
-        myMatrix.PrintMatrix(matrix);
+        number lNormIndex = getLNormIndex(matrix);
+        int j = lNormIndex.index;
+
+        myMatrix.PrintMatrix(matrix, -1, j);
+
+        SetConsoleTextAttribute(handleConsole, Green);
+
+        int row = matrix.size();
+        
+        string strLNorm = "L-норма = ";
+        string withModul = strLNorm;
+        string modul = strLNorm;
+
+        for (int i = 0; i < row; ++i) {
+
+            if (i != 0) {
+                withModul += "+ ";
+                modul += "+ ";
+            }
+
+            withModul += "|" + to_string(matrix[i][j]) + "| ";
+            modul += to_string(abs(matrix[i][j])) + " ";
+        }
+
+        withModul += "= " + to_string(lNormIndex.value);
+        modul += "= " + to_string(lNormIndex.value);
+
+        cout << endl << withModul << endl;
+        cout << modul << endl;
+
+        cout << strLNorm << lNormIndex.value << endl << endl;
+
+       
 
         
 
