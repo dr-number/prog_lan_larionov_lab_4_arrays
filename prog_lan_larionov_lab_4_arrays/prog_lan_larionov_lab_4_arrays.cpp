@@ -11,8 +11,6 @@
 #include <vector>
 #include <random>
 
-#define PI 3.14159265
-
 using namespace std;
 HANDLE handleConsole;
 
@@ -379,6 +377,26 @@ public:
             cout << setw(6) << "[" << j << "] ";
 
         cout << endl;
+    }
+
+    void PrintMatrix(vector <vector <int>> matrix) {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, Yellow);
+
+        printHeader(matrix);
+
+        int col = matrix[0].size();
+        int row = matrix.size();
+
+        for (int i = 0; i < row; ++i) {
+            cout << setw(MyMatrix::STR_WIDTH) << "[" << i << "] ";
+
+            for (int j = 0; j < col; ++j)
+                cout << setw(MyMatrix::STR_WIDTH) << matrix[i][j] << " ";
+
+            cout << endl;
+        }
     }
 
     interval GetCoordinateMinMax(vector <vector <int>> matrix) {
@@ -789,6 +807,54 @@ public:
     }
 };
 
+class Task56 {
+private:
+    double AbsSum(vector <vector <int>> matrix, int j) {
+
+        double sum = 0;
+        int row = matrix.size();
+
+        for (int i = 0; i < row; ++i)
+            sum = abs(matrix[i][j]);
+
+        return sum;
+    }
+
+    double getLNorm(vector <vector <int>> matrix) {
+
+        int col = matrix[0].size();
+
+        double sum;
+        double max = AbsSum(matrix, 0);
+
+        for (int j = 1; j < col; ++j) {
+            sum = AbsSum(matrix, j);
+
+            if (sum > max)
+                max = sum;
+        }
+
+        return max;
+    }
+
+public:
+    void Init() {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Вычислить L-норму матрицы" << endl << endl;
+
+        MyMatrix myMatrix = *new MyMatrix();
+        vector <vector <int>> matrix = myMatrix.CreateArray();
+
+        myMatrix.PrintMatrix(matrix);
+
+        
+
+    }
+};
+
 
 int main()
 {
@@ -817,6 +883,8 @@ int main()
 
         cout << "46) Поменять местали максимальный и минимальный элементы матрицы." << endl << endl;
 
+        cout << "56) Вычислить L-норму матрицы" << endl << endl;
+
         cout << endl << "Для выхода введите \"0\": ";
 
         select = GetLine();
@@ -840,6 +908,10 @@ int main()
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
+        }
+        else if (select == "56") {
+            Task56 task56 = *new Task56();
+            task56.Init();
         }
         else if (select == "0") {
             isGo = false;
