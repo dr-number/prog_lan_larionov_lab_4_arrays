@@ -61,7 +61,7 @@ public:
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << xStr + " - не число!" << endl << endl;
             }
-            else if (isNegative && result <= 0) {
+            else if (!isNegative && result <= 0) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << "Число должно быть больше нуля!" << endl << endl;
             }
