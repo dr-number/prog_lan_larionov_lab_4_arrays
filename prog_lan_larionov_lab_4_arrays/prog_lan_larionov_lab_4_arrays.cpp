@@ -922,9 +922,48 @@ public:
 class Task66 {
 private:
     vector <int> getMultiply(vector <vector <int>> matrix, vector <int> vector) {
+        
         int matrixCol = matrix[0].size();
         int matrixRow = matrix.size();
+
+        int centerRow = matrixRow / 2;
+
+        for (int i = 0; i < matrixRow; ++i) {
+
+            cout << "| ";
+
+            for (int j = 0; j < matrixCol; ++j) {
+
+                if(j != 0)
+                    cout << setw(8); 
+                
+                cout << matrix[i][j] << " ";
+
+            }
+
+            cout << "| ";
+
+            if (i == centerRow)
+                cout << "X ";
+
+            SetConsoleTextAttribute(handleConsole, Green);
+
+            if (i == centerRow)
+                cout << "|";
+            else
+                cout << "  |";
+
+            cout << setw(8) << vector[i] << " | ";
+
+            SetConsoleTextAttribute(handleConsole, White);
+
+            cout << endl;
+
+        }
+
+        return vector;
     }
+
 public:
     void Init() {
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -951,11 +990,11 @@ public:
 
         if (isRandom) {
             matrix = myMatrix.CreateRandomArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-            vector = myArray.CreateRandomArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            vector = myArray.CreateRandomArray(n, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
         }
         else {
             matrix = myMatrix.CreateInputArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-            vector = myArray.CreateInputArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            vector = myArray.CreateInputArray(n, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
         }
 
         cout << "Матрица A:" << endl;
@@ -963,6 +1002,9 @@ public:
 
         cout << endl << "Вектор Х:" << endl;
         myArray.PrintArray(vector);
+
+        cout << endl;
+        getMultiply(matrix, vector);
     }
 };
 
