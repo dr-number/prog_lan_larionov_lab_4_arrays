@@ -924,68 +924,24 @@ public:
 class Task66 {
 private:
     class CalcHide {
-    private:
-        int Multiplication(vector <vector <int>> matrix, vector <int> Vector, int i) {
-
-            int result = 0;
-
-            //перемножаем
-            int matrixCol = matrix[0].size();
-            for (int j = 0; j < matrixCol; ++j) {
-
-                if (j == matrixCol - 1) 
-                     result = GetTotal(matrix, Vector, i);
-
-            }
-
-            return result;
-        }
-
-        int GetTotal(vector <vector <int>> matrix, vector <int> vector, int i) {
-            // итоги
-
-            int matrixCol = matrix[0].size();
-
-            int sum = 0;
-            for (int j = 0; j < matrixCol; ++j) {
-
-                sum += matrix[i][j] * vector[j];
-
-                if (j == matrixCol - 1) 
-                    cout << sum << endl;
-                
-            }
-
-            return sum;
-        }
-
     public:
         vector <int> getMultiply(vector <vector <int>> matrix, vector <int> Vector) {
 
             int matrixCol = matrix[0].size();
             int matrixRow = matrix.size();
 
-            int vectorSize = Vector.size();
-            int row = vectorSize;
-
-            if (vectorSize > row)
-                row = vectorSize;
-
-
             vector <int> result;
+            int sum = 0;
 
             for (int i = 0; i < matrixRow; ++i) {
 
-               
+                for (int j = 0; j < matrixCol; ++j)
+                    sum += matrix[i][j] * Vector[j];
 
-                for (int j = 0; j < matrixCol; ++j) {
-
-                    if (j == matrixCol - 1) 
-                        result.push_back(Multiplication(matrix, Vector, i));
-                    
-                }
+                result.push_back(sum);
+                sum = 0;
             }
-
+                    
             return result;
         }
 
