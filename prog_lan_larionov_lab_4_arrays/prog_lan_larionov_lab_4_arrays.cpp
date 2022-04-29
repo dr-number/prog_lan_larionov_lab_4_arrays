@@ -282,6 +282,24 @@ public:
 
     int const STR_WIDTH = 8;
 
+    struct coordinate {
+        public:
+            int n;
+            int m;
+    };
+
+    struct interval {
+    public:
+        coordinate min;
+        coordinate max;
+    };
+
+    bool isQual(coordinate a, coordinate b) {
+        bool n = a.n == b.n;
+        bool m = a.m == b.m;
+        return n && m;
+    }
+
     vector <vector <int>> CreateRandomArray(int n, int m, int minValue, int maxValue) {
 
         vector <vector <int>> arr(n, vector <int>(m));
@@ -300,10 +318,13 @@ public:
         MyInput myInput = *new MyInput();
 
         int size = m * n;
+        int num = 1;
 
         for (int i = 0; i < n; ++i)
-            for (int j = 0; j < m; ++j)
-                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(size) + "): ", minValue, maxValue, true);
+            for (int j = 0; j < m; ++j) {
+                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(num) + " из " + to_string(size) + "): ", minValue, maxValue, true);
+                ++num;
+            }
 
         return arr;
     }
@@ -342,6 +363,53 @@ public:
             cout << setw(6) << "[" << j << "] ";
 
         cout << endl;
+    }
+
+    interval GetCoordinateMinMax(vector <vector <int>> matrix) {
+
+        int col = matrix[0].size();
+        int row = matrix.size();
+
+        int min = matrix[0][0];
+        int max = matrix[0][0];
+
+        coordinate indexMin;
+        indexMin.n = 0;
+        indexMin.m = 0;
+
+        coordinate indexMax;
+        indexMax.n = 0;
+        indexMax.m = 0;
+
+        int item;
+
+
+        for (int i = 0; i < row; ++i)
+            for (int j = 0; j < col; ++j) {
+
+                item = matrix[i][j];
+
+                if (item < min) {
+                    min = item;
+                    indexMin.n = i;
+                    indexMin.m = j;
+                }
+
+                if (item > max) {
+                    max = item;
+                    indexMax.n = i;
+                    indexMax.m = j;
+                }
+            }
+
+
+
+        interval result = *new interval();
+
+        result.min = indexMin;
+        result.max = indexMax;
+
+        return result;
     }
 
 };
@@ -638,6 +706,81 @@ public:
     }
 };
 
+class Task46 {
+public:
+    void Init() {
+
+        SetConsoleTextAttribute(handleConsole, White);
+        cout << "Поменять местали максимальный и минимальный элементы матрицы." << endl;
+      
+        MyMatrix myMatrix = *new MyMatrix();
+        vector <vector <int>> matrix = myMatrix.CreateArray();
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "\nИсходная матрица:" << endl << endl;
+
+        MyMatrix::interval coordMinMax = myMatrix.GetCoordinateMinMax(matrix);
+
+        MyMatrix::coordinate coordMin = coordMinMax.min;
+        MyMatrix::coordinate coordMax = coordMinMax.max;
+
+        bool isEqal = myMatrix.isQual(coordMin, coordMax);
+
+        if (isEqal) {
+            SetConsoleTextAttribute(handleConsole, Blue);
+            cout << "Все элементы массива одинаковы!" << endl << endl;
+        }
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходный массив:" << endl;
+
+        string info;
+
+        myMatrix.printHeader(matrix);
+
+        int col = matrix[0].size();
+        int row = matrix.size();
+
+        for (int i = 0; i < row; ++i) {
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "[" << i << "] ";
+
+            for (int j = 0; j < col; ++j) {
+
+                if (!isEqal) {
+                    if (i == coordMin.n && j == coordMin.m) {
+                        SetConsoleTextAttribute(handleConsole, Red);
+                    }
+                    else if (i == coordMax.n && j == coordMax.m) {
+                        SetConsoleTextAttribute(handleConsole, Green);
+                    }
+                    else
+                        SetConsoleTextAttribute(handleConsole, White);
+                }
+
+                cout << setw(myMatrix.STR_WIDTH) << matrix[i][j] << " ";
+            }
+
+            cout << endl;
+        
+        }
+
+        if (!isEqal) {
+
+
+
+            SetConsoleTextAttribute(handleConsole, Red);
+            cout << "\nМинимальный элемент массива:  [" << coordMin.n << "][" << coordMin.m << "] " << matrix[coordMin.n][coordMin.m] << endl;
+
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << "Максимальный элемент массива: [" << coordMax.n << "][" << coordMax.m << "] " << matrix[coordMax.n][coordMax.m] << endl;
+        }
+
+        
+    }
+};
+
 
 int main()
 {
@@ -657,12 +800,14 @@ int main()
         SetConsoleTextAttribute(handleConsole, White);
 
         cout << "\nВведите номер задачи" << endl;
-        cout << "6)	Поменять местали максимальный и минимальный элемент массива." << endl << endl;
+        cout << "6)	Поменять местали максимальный и минимальный элементы массива." << endl << endl;
 
         cout << "26) Поменять местали указанные элементы массива." << endl << endl;
 
         cout << "36) В матрице заменить все положительные элементы нулями," << endl;
         cout << "если количество отрицательных элементов окажется больше, чем количество положительных элементов." << endl << endl;
+
+        cout << "46) Поменять местали максимальный и минимальный элементы матрицы." << endl << endl;
 
         cout << endl << "Для выхода введите \"0\": ";
 
@@ -683,11 +828,11 @@ int main()
         else if (select == "36") {
             Task36 task36 = *new Task36();
             task36.Init();
-        }/*
+        }
         else if (select == "46") {
             Task46 task46 = *new Task46();
             task46.Init();
-        }*/
+        }
         else if (select == "0") {
             isGo = false;
         }
