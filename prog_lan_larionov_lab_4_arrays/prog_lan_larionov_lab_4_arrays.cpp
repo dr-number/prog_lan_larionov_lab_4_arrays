@@ -336,6 +336,15 @@ public:
         return arr;
     }
 
+    vector <vector <int>> Swap(vector <vector <int>> matrix, coordinate coord1, coordinate coord2) {
+
+        int tmp = matrix[coord1.n][coord1.m];
+        matrix[coord1.n][coord1.m] = matrix[coord2.n][coord2.m];
+        matrix[coord2.n][coord2.m] = tmp;
+
+        return matrix;
+    }
+
     vector <vector <int>> CreateArray(int n, int m, int minValue, int maxValue) {
 
         MyQuestion myQuestion = *new MyQuestion();
