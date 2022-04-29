@@ -520,6 +520,9 @@ private:
 
         MyMatrix myMatrix = *new MyMatrix();
 
+        if (isPrint)
+            myMatrix.printHeader(matrix);
+
         for (int i = 0; i < row; ++i) {
 
             if (isPrint) {
@@ -563,7 +566,44 @@ private:
         }
 
         return countNegative > countPositive;
+    }
 
+    vector <vector <int>> GetMatrixPositiveToZero(vector <vector <int>> matrix, bool isPrint = true) {
+
+        int col = matrix[0].size();
+        int row = matrix.size();
+
+        MyMatrix myMatrix = *new MyMatrix();
+
+        if (isPrint)
+            myMatrix.printHeader(matrix);
+
+        for (int i = 0; i < row; ++i) {
+
+            if (isPrint) {
+                SetConsoleTextAttribute(handleConsole, Yellow);
+                cout << "[" << i << "] " << setw(myMatrix.STR_WIDTH);
+            }
+
+            for (int j = 0; j < col; ++j) {
+
+                if (matrix[i][j] > 0)
+                    SetConsoleTextAttribute(handleConsole, Green);
+                else {
+                    SetConsoleTextAttribute(handleConsole, White);
+                    matrix[i][j] = 0;
+                }
+               
+                if (isPrint)
+                    cout << setw(myMatrix.STR_WIDTH) << matrix[i][j] << " ";
+
+            }
+
+            if (isPrint)
+                cout << endl;
+        }
+
+        return matrix;
     }
 
 public:
@@ -577,10 +617,23 @@ public:
         vector <vector <int>> matrix = myMatrix.CreateArray();
         
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходная матрица:" << endl << endl;
+        cout << "\nИсходная матрица:" << endl << endl;
 
-        myMatrix.printHeader(matrix);
-        isNegativeMatrix(matrix, true);
+      
+        if(isNegativeMatrix(matrix, true)){
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "Количество отрицательных элементов больше, чем количество положительных элементов." << endl;
+            cout << "Заменяем все положительные элементы матрицы нулями." << endl << endl;
+
+            cout << "Преобразованная матрица:" << endl << endl;
+
+            GetMatrixPositiveToZero(matrix, true);
+        }
+        else {
+            SetConsoleTextAttribute(handleConsole, Red);
+            cout << "Условие не выполняется оставляем все как есть" << endl;
+        }
 
     }
 };
