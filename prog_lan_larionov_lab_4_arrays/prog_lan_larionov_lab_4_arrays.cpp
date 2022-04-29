@@ -914,10 +914,6 @@ public:
 
         cout << strLNorm << lNormIndex.value << endl << endl;
 
-       
-
-        
-
     }
 };
 
@@ -946,7 +942,6 @@ private:
         }
 
     };
-
 
     class CalcPrint {
         private:
@@ -1005,8 +1000,8 @@ private:
             int vectorSize = Vector.size();
             int row = vectorSize;
 
-            if (vectorSize > row)
-                row = vectorSize;
+            if (matrixRow > row)
+                row = matrixRow;
 
             int centerRow = row / 2;
 
