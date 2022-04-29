@@ -183,6 +183,13 @@ public:
     int const MIN_COUNT = 5;
     int const MAX_COUNT = 10000;
 
+    vector <int> Swap(vector <int> arr, int index1, int index2) {
+        int tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
+        return arr;
+    }
+
     vector <int> CreateRandomArray(int n, int minValue, int maxValue) {
         
         vector <int> arr;
@@ -415,35 +422,12 @@ public:
 };
 
 class Task6 {
-
-public:
-    void Init() {
-
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleTextAttribute(handleConsole, White);
-
-        cout << "Поменять местали максимальный и минимальный элемент массива." << endl << endl;
-
-        MyArray myArray = *new MyArray();
-        vector<int> arr = myArray.CreateArray();
-
-        int size = arr.size();
-
-        int indexMinElem = myArray.GetIndexMinElem(arr);
-        int indexMaxElem = myArray.GetIndexMaxElem(arr);
-
-        bool isEqal = indexMinElem == indexMaxElem;
-
-        if (isEqal) {
-            SetConsoleTextAttribute(handleConsole, Blue);
-            cout << "Все элементы массива одинаковы!" << endl << endl;
-        }
-
-        SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный массив:" << endl;
+private:
+    void PrintArray(vector<int> arr, int indexMinElem, int indexMaxElem, bool isEqal) {
 
         string info;
 
+        int size = arr.size();
         for (int i = 0; i < size; ++i) {
 
             if (!isEqal) {
@@ -463,33 +447,42 @@ public:
 
             cout << "[" << i << "] " << arr[i] << info << endl; //форматированный вывод
         }
+    }
+
+public:
+    void Init() {
+
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Поменять местали максимальный и минимальный элемент массива." << endl << endl;
+
+        MyArray myArray = *new MyArray();
+        vector<int> arr = myArray.CreateArray();
+
+        int indexMinElem = myArray.GetIndexMinElem(arr);
+        int indexMaxElem = myArray.GetIndexMaxElem(arr);
+
+        bool isEqal = indexMinElem == indexMaxElem;
+
+        if (isEqal) {
+            SetConsoleTextAttribute(handleConsole, Blue);
+            cout << "Все элементы массива одинаковы!" << endl << endl;
+        }
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходный массив:" << endl;
+
+        PrintArray(arr, indexMinElem, indexMaxElem, isEqal);
 
         if (!isEqal) {
 
-            int item = 0;
             SetConsoleTextAttribute(handleConsole, Blue);
             cout << endl << "Преобразованный массив:" << endl;
 
-            for (int i = 0; i < size; ++i) {
+            arr = myArray.Swap(arr, indexMinElem, indexMaxElem);
 
-                if (i == indexMinElem) {
-                    SetConsoleTextAttribute(handleConsole, Green);
-                    item = arr[indexMaxElem];
-                    info = " - максимальный элемент";
-                }
-                else if (i == indexMaxElem) {
-                    SetConsoleTextAttribute(handleConsole, Green);
-                    item = arr[indexMinElem];
-                    info = " - минимальный элемент";
-                }
-                else {
-                    SetConsoleTextAttribute(handleConsole, Yellow);
-                    info = "";
-                    item = arr[i];
-                }
-
-                cout << "[" << i << "] " << item << info << endl;
-            }
+            PrintArray(arr, indexMaxElem, indexMinElem, isEqal);
         }
  
     }
@@ -497,6 +490,24 @@ public:
 };
 
 class Task26 {
+private:
+    void printArray(vector<int> arr, int index1, int index2) {
+
+        SetConsoleTextAttribute(handleConsole, White);
+
+        int size = arr.size();
+
+        for (int i = 0; i < size; ++i) {
+
+            if (i == index1 || i == index2)
+                SetConsoleTextAttribute(handleConsole, Green);
+            else
+                SetConsoleTextAttribute(handleConsole, White);
+
+            cout << "[" << i << "] " << arr[i] << endl; //форматированный вывод
+        }
+    }
+
 public:
     void Init() {
 
@@ -532,44 +543,16 @@ public:
         SetConsoleTextAttribute(handleConsole, Yellow);
         cout << endl << "Исходный массив:" << endl;
 
-        SetConsoleTextAttribute(handleConsole, White);
-
-        for (int i = 0; i < size; ++i) {
-
-            if (i == index1 || i == index2) 
-                SetConsoleTextAttribute(handleConsole, Green);
-            else
-                SetConsoleTextAttribute(handleConsole, White);
-
-            cout << "[" << i << "] " << arr[i] << endl; //форматированный вывод
-        }
+        printArray(arr, index1, index2);
 
 
         SetConsoleTextAttribute(handleConsole, Yellow);
         cout << endl << "Поменять местали элементы массива под индексами " << index1 << " и " << index2 << endl << endl;
         cout << "Преобразованный массив:" << endl;
 
-        SetConsoleTextAttribute(handleConsole, White);
+        arr = myArray.Swap(arr, index1, index2);
 
-        int item;
-
-        for (int i = 0; i < size; ++i) {
-
-            if (i == index1) {
-                SetConsoleTextAttribute(handleConsole, Green);
-                item = arr[index2];
-            }
-            else if (i == index2) {
-                SetConsoleTextAttribute(handleConsole, Green);
-                item = arr[index1];
-            }
-            else {
-                SetConsoleTextAttribute(handleConsole, White);
-                item = arr[i];
-            }
-
-            cout << "[" << i << "] " << item << endl; //форматированный вывод
-        }
+        printArray(arr, index1, index2);
 
     }
 };
