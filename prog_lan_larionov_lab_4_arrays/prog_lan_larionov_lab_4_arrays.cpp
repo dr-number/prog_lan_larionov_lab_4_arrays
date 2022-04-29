@@ -20,7 +20,8 @@ enum ConsoleColor
     Green = 2,
     Red = 4,
     Yellow = 14,
-    White = 15
+    White = 15,
+    Black = 0
 };
 
 string GetLine() {
@@ -139,6 +140,7 @@ class MyQuestion {
 public:
     const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
     const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
+    const string QUESTION_SHOW_CALC = "Показывать ход вычислений [y/n]?";
 
     bool isQuestion(string textQuestion) {
 
@@ -921,48 +923,284 @@ public:
 
 class Task66 {
 private:
-    vector <int> getMultiply(vector <vector <int>> matrix, vector <int> vector) {
-        
-        int matrixCol = matrix[0].size();
-        int matrixRow = matrix.size();
+    class CalcHide {
+    private:
+        int Multiplication(vector <vector <int>> matrix, vector <int> Vector, int i) {
 
-        int centerRow = matrixRow / 2;
+            int result = 0;
 
-        for (int i = 0; i < matrixRow; ++i) {
-
-            cout << "| ";
-
+            //перемножаем
+            int matrixCol = matrix[0].size();
             for (int j = 0; j < matrixCol; ++j) {
 
-                if(j != 0)
-                    cout << setw(8); 
-                
-                cout << matrix[i][j] << " ";
+                SetConsoleTextAttribute(handleConsole, White);
+                cout << matrix[i][j] * Vector[j];
+
+                if (j != matrixCol - 1) {
+                    SetConsoleTextAttribute(handleConsole, Yellow);
+                    cout << " + ";
+                }
+                else {
+                    SetConsoleTextAttribute(handleConsole, Blue);
+                    cout << " = ";
+                    result = GetTotal(matrix, Vector, i);
+                }
 
             }
 
-            cout << "| ";
-
-            if (i == centerRow)
-                cout << "X ";
-
-            SetConsoleTextAttribute(handleConsole, Green);
-
-            if (i == centerRow)
-                cout << "|";
-            else
-                cout << "  |";
-
-            cout << setw(8) << vector[i] << " | ";
-
-            SetConsoleTextAttribute(handleConsole, White);
-
-            cout << endl;
-
+            return result;
         }
 
-        return vector;
-    }
+        int GetTotal(vector <vector <int>> matrix, vector <int> vector, int i) {
+            // итоги
+
+            int matrixCol = matrix[0].size();
+
+            int sum = 0;
+            for (int j = 0; j < matrixCol; ++j) {
+
+                SetConsoleTextAttribute(handleConsole, White);
+                sum += matrix[i][j] * vector[j];
+
+                if (j == matrixCol - 1) {
+                    SetConsoleTextAttribute(handleConsole, Green);
+                    cout << sum << endl;
+                }
+            }
+
+            return sum;
+        }
+
+    public:
+        vector <int> getPrintMultiply(vector <vector <int>> matrix, vector <int> Vector) {
+
+            int matrixCol = matrix[0].size();
+            int matrixRow = matrix.size();
+
+            int vectorSize = Vector.size();
+            int row = vectorSize;
+
+            if (vectorSize > row)
+                row = vectorSize;
+
+            int centerRow = row / 2;
+
+            for (int i = 0; i < row; ++i) {
+
+                cout << "| ";
+
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    if (j != 0)
+                        cout << setw(8);
+
+                    if (i < matrixRow)
+                        cout << matrix[i][j] << " ";
+                    else
+                        cout << setw(8) << " ";
+
+                }
+
+                cout << "| ";
+
+                if (i == centerRow)
+                    cout << "X ";
+
+                SetConsoleTextAttribute(handleConsole, Green);
+
+                if (i == centerRow)
+                    cout << "|";
+                else
+                    cout << "  |";
+
+                if (i < vectorSize)
+                    cout << setw(8) << Vector[i] << " | ";
+                else {
+                    SetConsoleTextAttribute(handleConsole, Black);
+                    cout << setw(8) << "        ";
+
+                    SetConsoleTextAttribute(handleConsole, White);
+                    cout << "      | ";
+                }
+
+                SetConsoleTextAttribute(handleConsole, White);
+
+                cout << endl;
+
+            }
+
+            cout << endl;
+            vector <int> result;
+
+            for (int i = 0; i < matrixRow; ++i) {
+
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << "c" << (i + 1);
+
+                SetConsoleTextAttribute(handleConsole, Blue);
+                cout << " = ";
+
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    SetConsoleTextAttribute(handleConsole, Yellow);
+                    cout << matrix[i][j] << " * " << Vector[j];
+
+                    if (j != matrixCol - 1) {
+                        SetConsoleTextAttribute(handleConsole, Green);
+                        cout << " + ";
+                    }
+                    else {
+                        SetConsoleTextAttribute(handleConsole, Blue);
+                        cout << " = ";
+
+                        result.push_back(Multiplication(matrix, Vector, i));
+                    }
+                }
+            }
+
+            return result;
+        }
+
+    };
+    class CalcPrint {
+        private:
+            int Multiplication(vector <vector <int>> matrix, vector <int> Vector, int i) {
+
+                int result = 0;
+
+                //перемножаем
+                int matrixCol = matrix[0].size();
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    SetConsoleTextAttribute(handleConsole, White);
+                    cout << matrix[i][j] * Vector[j];
+
+                    if (j != matrixCol - 1) {
+                        SetConsoleTextAttribute(handleConsole, Yellow);
+                        cout << " + ";
+                    }
+                    else {
+                        SetConsoleTextAttribute(handleConsole, Blue);
+                        cout << " = ";
+                        result = GetTotal(matrix, Vector, i);
+                    }
+
+                }
+
+                return result;
+            }
+
+            int GetTotal(vector <vector <int>> matrix, vector <int> vector, int i) {
+                // итоги
+
+                int matrixCol = matrix[0].size();
+
+                int sum = 0;
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    SetConsoleTextAttribute(handleConsole, White);
+                    sum += matrix[i][j] * vector[j];
+
+                    if (j == matrixCol - 1) {
+                        SetConsoleTextAttribute(handleConsole, Green);
+                        cout << sum << endl;
+                    }
+                }
+
+                return sum;
+            }
+
+        public:
+            vector <int> getPrintMultiply(vector <vector <int>> matrix, vector <int> Vector) {
+
+            int matrixCol = matrix[0].size();
+            int matrixRow = matrix.size();
+
+            int vectorSize = Vector.size();
+            int row = vectorSize;
+
+            if (vectorSize > row)
+                row = vectorSize;
+
+            int centerRow = row / 2;
+
+            for (int i = 0; i < row; ++i) {
+
+                cout << "| ";
+
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    if (j != 0)
+                        cout << setw(8);
+
+                    if (i < matrixRow)
+                        cout << matrix[i][j] << " ";
+                    else
+                        cout << setw(8) << " ";
+
+                }
+
+                cout << "| ";
+
+                if (i == centerRow)
+                    cout << "X ";
+
+                SetConsoleTextAttribute(handleConsole, Green);
+
+                if (i == centerRow)
+                    cout << "|";
+                else
+                    cout << "  |";
+
+                if (i < vectorSize)
+                    cout << setw(8) << Vector[i] << " | ";
+                else {
+                    SetConsoleTextAttribute(handleConsole, Black);
+                    cout << setw(8) << "        ";
+
+                    SetConsoleTextAttribute(handleConsole, White);
+                    cout << "      | ";
+                }
+
+                SetConsoleTextAttribute(handleConsole, White);
+
+                cout << endl;
+
+            }
+
+            cout << endl;
+            vector <int> result;
+
+            for (int i = 0; i < matrixRow; ++i) {
+
+                SetConsoleTextAttribute(handleConsole, Green);
+                cout << "c" << (i + 1);
+
+                SetConsoleTextAttribute(handleConsole, Blue);
+                cout << " = ";
+
+                for (int j = 0; j < matrixCol; ++j) {
+
+                    SetConsoleTextAttribute(handleConsole, Yellow);
+                    cout << matrix[i][j] << " * " << Vector[j];
+
+                    if (j != matrixCol - 1) {
+                        SetConsoleTextAttribute(handleConsole, Green);
+                        cout << " + ";
+                    }
+                    else {
+                        SetConsoleTextAttribute(handleConsole, Blue);
+                        cout << " = ";
+
+                        result.push_back(Multiplication(matrix, Vector, i));
+                    }
+                }
+            }
+
+            return result;
+        }
+
+    };
 
 public:
     void Init() {
@@ -986,25 +1224,50 @@ public:
         int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: ", myMatrix.MIN_COL, myMatrix.MAX_COL);
 
         vector <vector <int>> matrix;
-        vector <int> vector;
+        vector <int> Vector;
 
         if (isRandom) {
             matrix = myMatrix.CreateRandomArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-            vector = myArray.CreateRandomArray(n, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            Vector = myArray.CreateRandomArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
         }
         else {
+            cout << endl << "Ввод матрицы А" << endl;
             matrix = myMatrix.CreateInputArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-            vector = myArray.CreateInputArray(n, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+
+            cout << endl << "Ввод вектора X" << endl;
+            Vector = myArray.CreateInputArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
         }
 
-        cout << "Матрица A:" << endl;
+        matrix = {
+            {1, 2, 3, 4, 5, 6},
+            {7, 8, 9, 0, 0, 9},
+            {8, 7, 6, 5, 4, 3},
+            {2, 1, 11, 22, 33,44},
+            {55, 66, 77, 88, 99, 111}
+        };
+
+        Vector = {1, 2, 3, 4, 5, 6};
+
+        cout << "\nМатрица A:" << endl;
         myMatrix.PrintMatrix(matrix);
 
         cout << endl << "Вектор Х:" << endl;
-        myArray.PrintArray(vector);
+        myArray.PrintArray(Vector);
 
         cout << endl;
-        getMultiply(matrix, vector);
+
+        bool isShowCalcProcess = myQuestion.isQuestion(myQuestion.QUESTION_SHOW_CALC);
+
+        vector <int> result;
+
+        if (isShowCalcProcess) {
+            CalcPrint calcPrint = *new CalcPrint();
+            result = calcPrint.getPrintMultiply(matrix, Vector);
+        }
+
+        cout << endl << "Результат произведения:" << endl;
+        myArray.PrintArray(result);
+        
     }
 };
 
