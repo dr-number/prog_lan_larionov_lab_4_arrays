@@ -35,7 +35,7 @@ class MyInput {
 
 public:
     bool isNum(string str) {
-        return str.find_first_not_of("1234567890") == string::npos;
+        return str.find_first_not_of("-1234567890") == string::npos;
     }
 
     int InputIntData(string text, int min, int max, int defaultValue = -1) {
