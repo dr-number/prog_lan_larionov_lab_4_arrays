@@ -34,12 +34,15 @@ string GetLine() {
 class MyInput {
 
 public:
+    bool isNum(string str) {
+        return str.find_first_not_of("1234567890") == string::npos;
+    }
 
     int InputIntData(string text, int min, int max, int defaultValue = -1) {
 
         string xStr = "";
         double result = 0;
-        bool isNumber = true, isWhole = true;
+        bool isNumber = true;
 
         while (true) {
 
@@ -47,7 +50,6 @@ public:
             cout << text;
 
             xStr = GetLine();
-            isWhole = true;
 
             if (xStr == "" && defaultValue != -1)
                 return defaultValue;
@@ -56,18 +58,12 @@ public:
             try {
                 result = stod(xStr.c_str());
                 isNumber = true;
-
-                if (result != round(result))
-                    isWhole = false;
             }
             catch (...) {
                 isNumber = false;
             }
 
-            if (!isWhole) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно быть целым!" << endl << endl;
-            }else if (!isNumber) {
+            if (!(isNumber && isNum(xStr))) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << xStr + " - не число!" << endl << endl;
             }
