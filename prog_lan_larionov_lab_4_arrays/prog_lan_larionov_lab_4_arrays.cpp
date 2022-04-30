@@ -247,7 +247,7 @@ public:
     int const DEFAULT_ROW = 10;
 
     int const MAX_ROW = 10000;
-    int const DEFAULT_COL = 10;
+    int const DEFAULT_COL = 12;
 
     int const STR_WIDTH = 8;
 
@@ -1041,7 +1041,7 @@ private:
 
                     if (j == matrixCol - 1) {
                         SetConsoleTextAttribute(handleConsole, Green);
-                        cout << sum << endl;
+                        cout << sum << endl << endl;
                     }
                 }
 
