@@ -524,7 +524,7 @@ public:
         const int MAX_VALUE = 90000;
         const int DEFAULT_VALUE = 2000;
 
-        int e = myInput.InputIntData("Введите величину отклонения Е: ", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
+        int e = myInput.InputIntData("Введите величину отклонения Е: [по умолчанию " + to_string(DEFAULT_VALUE) + "]", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
 
         SetConsoleTextAttribute(handleConsole, Green);
         cout << endl << "Величина отклонения Е: " << e << endl;
