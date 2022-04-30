@@ -539,6 +539,56 @@ public:
 
 };
 
+class Task16 {
+private:
+    double InputE(string text) {
+
+        double result;
+
+        MyInput myInput = *new MyInput();
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        
+        bool isGo = true;
+
+        while (isGo) {
+            SetConsoleTextAttribute(handleConsole, White);
+            result = myInput.InputData(text, false);
+
+            if (result <= 0 || result >= 1) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << "Число дложно быть в промежутке (0; 1)!" << endl << endl;
+            }
+            else
+                isGo = false;
+        }
+
+        return result;
+    }
+
+public:
+    void Init() {
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(handleConsole, White);
+
+        cout << "Вывести на экран только те его компоненты, которые отклоняются от арифметического" << endl;
+        cout << "среднего элементов вектора не более чем на заданную величину E." << endl << endl;
+
+        MyArray myArray = *new MyArray();
+        vector<int> arr = myArray.CreateArray();
+
+        double e = InputE("Введите величину отклонения Е: ");
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << endl << "Введите величина отклонения Е: " << e << endl;
+
+        SetConsoleTextAttribute(handleConsole, Yellow);
+        cout << "Исходный вектор К:" << endl;
+
+        myArray.PrintArray(arr);
+
+    }
+};
+
 class Task26 {
 private:
     void printArray(vector<int> arr, int index1, int index2) {
@@ -1207,6 +1257,9 @@ int main()
         cout << "\nВведите номер задачи" << endl;
         cout << "6)	Поменять местали максимальный и минимальный элементы массива." << endl << endl;
 
+        cout << "16) Вывести на экран только те его компоненты, которые отклоняются от арифметического" << endl;
+        cout << "среднего элементов вектора не более чем на заданную величину." << endl << endl;
+
         cout << "26) Поменять местали указанные элементы массива." << endl << endl;
 
         cout << "36) В матрице заменить все положительные элементы нулями," << endl;
@@ -1226,11 +1279,11 @@ int main()
         if (select == "6") {
             Task6 task6 = *new Task6();
             task6.Init();
-        }/*
+        }
         else if (select == "16") {
             Task16 task16 = *new Task16();
             task16.Init();
-        }*/
+        }
          else if (select == "26") {
             Task26 task26 = *new Task26();
             task26.Init();
