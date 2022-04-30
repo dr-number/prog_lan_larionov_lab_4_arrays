@@ -642,19 +642,20 @@ public:
             cout << arr[i] << info << endl;
         }
 
-        int size = result.size();
+        int count = result.size();
 
-        if (size != 0) {
+        if (count != 0) {
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "Элементы вектора К отвечающие условию задачи" << endl;
+            cout << "\nЭлементы вектора К отвечающие условию задачи (" << count << " из " << size << ")" << endl;
 
             SetConsoleTextAttribute(handleConsole, Yellow);
-            for (int i = 0; i < size; ++i)
+
+            for (int i = 0; i < count; ++i)
                 cout << result[i] << endl;
         }
         else {
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "Ни один элемент вектора К не отвечает условию задачи!" << endl;
+            cout << "\nНи один элемент вектора К не отвечает условию задачи!" << endl;
         }
 
 
