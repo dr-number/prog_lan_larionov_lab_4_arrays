@@ -35,11 +35,11 @@ class MyInput {
 
 public:
 
-    double InputData(string text, bool isNegative = true) {
+    int InputIntData(string text, int min, int max, int defaultValue = -1) {
 
         string xStr = "";
-        double x = 0, result = 0;
-        bool isNumber = true;
+        double result = 0;
+        bool isNumber = true, isWhole = true;
 
         while (true) {
 
@@ -47,82 +47,31 @@ public:
             cout << text;
 
             xStr = GetLine();
+            isWhole = true;
+
+            if (xStr == "" && defaultValue != -1)
+                return defaultValue;
+
 
             try {
                 result = stod(xStr.c_str());
                 isNumber = true;
+
+                if (result != round(result))
+                    isWhole = false;
             }
             catch (...) {
                 isNumber = false;
             }
 
-            if (!isNumber) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << xStr + " - не число!" << endl << endl;
-            }
-            else if (!isNegative && result <= 0) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно быть больше нуля!" << endl << endl;
-            }
-            else
-                break;
-        }
-
-        return result;
-    }
-
-    int InputIndex(string text, int max) {
-
-        string xStr = "";
-        double x = 0, result = 0;
-        bool isNumber = true;
-
-        while (true) {
-
-            SetConsoleTextAttribute(handleConsole, White);
-            cout << text;
-
-            xStr = GetLine();
-
-            try {
-                result = stoi(xStr.c_str());
-                isNumber = true;
-            }
-            catch (...) {
-                isNumber = false;
-            }
-
-            if (!isNumber) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << xStr + " - не число!" << endl << endl;
-            }
-            else if (result < 0) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число не должно быть меньше нуля!" << endl << endl;
-            }
-            else if (result > max) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно лежать в промежутке [0; " << max << "]!" << endl << endl;
-            }
-            else
-                break;
-        }
-
-        return result;
-    }
-
-    int InputIntData(string text, int min, int max, bool isNegative = false) {
-
-        double result;
-
-        while (true) {
-            result = InputData(text);
-
-            if (result != (int)result) {
+            if (!isWhole) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << "Число должно быть целым!" << endl << endl;
+            }else if (!isNumber) {
+                SetConsoleTextAttribute(handleConsole, Red);
+                cout << endl << xStr + " - не число!" << endl << endl;
             }
-            else if (!isNegative && (result < min || result > max)) {
+            else if (result > max || result < min) {
                 SetConsoleTextAttribute(handleConsole, Red);
                 cout << endl << "Число должно лежать в промежутке [" << min << "; " << max << "]!" << endl << endl;
             }
@@ -178,10 +127,13 @@ public:
     int const MIN_VALUE = -10000;
     int const MAX_VALUE = 10000;
 
-    int const DEFAULT_COUNT_VALUE = 50;
+    int const DEFAULT_COUNT_VALUE = 20;
 
     int const MIN_COUNT = 5;
     int const MAX_COUNT = 10000;
+
+    int const DEFAULT_ROW = 10;
+    int const DEFAULT_COL = 15;
 
     vector <int> Swap(vector <int> arr, int index1, int index2) {
         int tmp = arr[index1];
@@ -207,7 +159,7 @@ public:
         MyInput myInput = *new MyInput();
 
         for (int i = 0; i < n; ++i)
-            arr.push_back(myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(n) + "): ", minValue, maxValue, true));
+            arr.push_back(myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(n) + "): ", minValue, maxValue));
 
         return arr;
     }
@@ -230,7 +182,7 @@ public:
 
     vector <int> CreateArray() {
         MyInput myInput = *new MyInput();
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве?: ", MIN_COUNT, MAX_COUNT);
+        int size = myInput.InputIntData("Сколько элементов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COUNT_VALUE) + "]: ", MIN_COUNT, MAX_COUNT, DEFAULT_COUNT_VALUE);
         return CreateArray(size);
     }
 
@@ -286,13 +238,16 @@ public:
     int const MIN_VALUE = -10000;
     int const MAX_VALUE = 10000;
 
-    int const DEFAULT_COUNT_VALUE = 50;
+    int const DEFAULT_COUNT_VALUE = 20;
 
     int const MIN_COL = 5;
     int const MAX_COL = 10000;
 
     int const MIN_ROW = 5;
+    int const DEFAULT_ROW = 10;
+
     int const MAX_ROW = 10000;
+    int const DEFAULT_COL = 15;
 
     int const STR_WIDTH = 8;
 
@@ -336,7 +291,7 @@ public:
 
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < m; ++j) {
-                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(num) + " из " + to_string(size) + "): ", minValue, maxValue, true);
+                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(num) + " из " + to_string(size) + "): ", minValue, maxValue);
                 ++num;
             }
 
@@ -371,8 +326,8 @@ public:
     vector <vector <int>> CreateArray() {
 
         MyInput myInput = *new MyInput();
-        int n = myInput.InputIntData("Сколько строк должно быть в массиве?: ", MIN_ROW, MAX_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве?: ", MIN_COL, MAX_COL);
+        int n = myInput.InputIntData("Сколько строк должно быть в массиве? [по умолчанию " + to_string(DEFAULT_ROW)  + "]: ", MIN_ROW, MAX_ROW, DEFAULT_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_ROW);
 
         return CreateArray(n, m);
     }
@@ -552,30 +507,6 @@ private:
         return sum / size;
     }
 
-    double InputE(string text) {
-
-        double result;
-
-        MyInput myInput = *new MyInput();
-        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        
-        bool isGo = true;
-
-        while (isGo) {
-            SetConsoleTextAttribute(handleConsole, White);
-            result = myInput.InputData(text, false);
-
-            if (result <= 0 || result >= 1) {
-                SetConsoleTextAttribute(handleConsole, Red);
-                cout << "Число дложно быть в промежутке (0; 1)!" << endl << endl;
-            }
-            else
-                isGo = false;
-        }
-
-        return result;
-    }
-
 public:
     void Init() {
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -587,10 +518,13 @@ public:
         MyArray myArray = *new MyArray();
         vector<int> arr = myArray.CreateArray();
 
-        //double e = InputE("Введите величину отклонения Е: ");
-
         MyInput myInput = *new MyInput();
-        double e = myInput.InputData("Введите величину отклонения Е: ", false);
+
+        const int MIN_VALUE = 0;
+        const int MAX_VALUE = 90000;
+        const int DEFAULT_VALUE = 2000;
+
+        int e = myInput.InputIntData("Введите величину отклонения Е: ", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
 
         SetConsoleTextAttribute(handleConsole, Green);
         cout << endl << "Величина отклонения Е: " << e << endl;
@@ -699,8 +633,8 @@ public:
 
         while (true) {
 
-            index1 = myInput.InputIndex("Введите индекс №1: ", size - 1);
-            index2 = myInput.InputIndex("Введите индекс №2: ", size - 1);
+            index1 = myInput.InputIntData("Введите индекс №1: ", 0, size - 1);
+            index2 = myInput.InputIntData("Введите индекс №2: ", 0, size - 1);
 
             if (index1 == index2) {
                 SetConsoleTextAttribute(handleConsole, Red);
@@ -1220,8 +1154,8 @@ public:
         MyMatrix myMatrix = *new MyMatrix();
         MyInput myInput = *new MyInput();
 
-        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: ", myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: ", myMatrix.MIN_COL, myMatrix.MAX_COL);
+        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: [по умолчанию " + to_string(myMatrix.DEFAULT_ROW) + "]", myMatrix.MIN_ROW, myMatrix.MAX_ROW, myMatrix.DEFAULT_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: [по умолчанию " + to_string(myMatrix.DEFAULT_COL) + "]", myMatrix.MIN_COL, myMatrix.MAX_COL, myMatrix.DEFAULT_COL);
 
         vector <vector <int>> matrix;
         vector <int> Vector;
