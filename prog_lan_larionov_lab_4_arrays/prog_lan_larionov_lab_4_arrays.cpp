@@ -541,6 +541,17 @@ public:
 
 class Task16 {
 private:
+    double getAverage(vector <int> arr) {
+
+        double sum = 0;
+        int size = arr.size();
+
+        for (int i = 0; i < size; ++i)
+            sum += arr[i];
+
+        return sum / size;
+    }
+
     double InputE(string text) {
 
         double result;
@@ -576,15 +587,76 @@ public:
         MyArray myArray = *new MyArray();
         vector<int> arr = myArray.CreateArray();
 
-        double e = InputE("Введите величину отклонения Е: ");
+        //double e = InputE("Введите величину отклонения Е: ");
+
+        MyInput myInput = *new MyInput();
+        double e = myInput.InputData("Введите величину отклонения Е: ", false);
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << endl << "Введите величина отклонения Е: " << e << endl;
+        cout << endl << "Величина отклонения Е: " << e << endl;
+
+        double average = getAverage(arr);
+        cout << "Среднее арифмитическое элементов вектора: " << average << endl;
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный вектор К:" << endl;
+        cout << "Исходный вектор К:" << endl << endl;
 
         myArray.PrintArray(arr);
+
+        SetConsoleTextAttribute(handleConsole, Green);
+        cout << "\nВычисления:" << endl;
+
+        string sign = "", info = "", symbol = "";
+        int size = arr.size();
+
+        vector<int> result;
+        double check;
+
+        for (int i = 0; i < size; ++i) {
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            cout << "[" << i << "] ";
+
+            symbol = "";
+
+            check = abs(arr[i] - average);
+
+            if (check < e) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                sign = " < ";
+                result.push_back(arr[i]);
+            }
+            else if (check == e) {
+                SetConsoleTextAttribute(handleConsole, Green);
+                sign = " = ";
+                result.push_back(arr[i]);
+            }
+            else {
+                SetConsoleTextAttribute(handleConsole, Red);
+                sign = " > ";
+                symbol = "не";
+            }
+
+            info = " | " + to_string(arr[i]) + " - " + to_string(average) + " | = " + to_string(arr[i] - average) + " = " + to_string(check) + sign + to_string(e) + " " + symbol + " подходит по условию задачи";
+
+            cout << arr[i] << info << endl;
+        }
+
+        int size = result.size();
+
+        if (size != 0) {
+            SetConsoleTextAttribute(handleConsole, Green);
+            cout << "Элементы вектора К отвечающие условию задачи" << endl;
+
+            SetConsoleTextAttribute(handleConsole, Yellow);
+            for (int i = 0; i < size; ++i)
+                cout << result[i] << endl;
+        }
+        else {
+            SetConsoleTextAttribute(handleConsole, Red);
+            cout << "Ни один элемент вектора К не отвечает условию задачи!" << endl;
+        }
+
 
     }
 };
