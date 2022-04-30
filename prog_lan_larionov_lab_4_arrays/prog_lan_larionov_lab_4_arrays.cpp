@@ -247,7 +247,7 @@ public:
     int const DEFAULT_ROW = 10;
 
     int const MAX_ROW = 10000;
-    int const DEFAULT_COL = 15;
+    int const DEFAULT_COL = 10;
 
     int const STR_WIDTH = 8;
 
@@ -327,7 +327,7 @@ public:
 
         MyInput myInput = *new MyInput();
         int n = myInput.InputIntData("Сколько строк должно быть в массиве? [по умолчанию " + to_string(DEFAULT_ROW)  + "]: ", MIN_ROW, MAX_ROW, DEFAULT_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_COL);
 
         return CreateArray(n, m);
     }
@@ -892,12 +892,12 @@ private:
     struct number {
     public:
         int index;
-        double value;
+        int value;
     };
 
-    double AbsSumRow(vector <vector <int>> matrix, int j) {
+    int AbsSumRow(vector <vector <int>> matrix, int j) {
 
-        double sum = 0;
+        int sum = 0;
         int row = matrix.size();
 
         for (int i = 0; i < row; ++i)
@@ -910,7 +910,7 @@ private:
 
         int col = matrix[0].size();
 
-        double sum;
+        int sum;
         number max;
         
         max.index = 0;
