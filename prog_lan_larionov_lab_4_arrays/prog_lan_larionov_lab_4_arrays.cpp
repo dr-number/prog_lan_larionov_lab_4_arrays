@@ -562,7 +562,7 @@ public:
                 symbol = "не";
             }
 
-            info = " | " + to_string(arr[i]) + " - " + to_string(average) + " | = " + to_string(arr[i] - average) + " = " + to_string(check) + sign + to_string(e) + " " + symbol + " подходит по условию задачи";
+            info = " | " + to_string(arr[i]) + " - " + to_string(average) + " | = | " + to_string(arr[i] - average) + " | = " + to_string(check) + sign + to_string(e) + " " + symbol + " подходит по условию задачи";
 
             cout << arr[i] << info << endl;
         }
