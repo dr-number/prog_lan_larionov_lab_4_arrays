@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <Windows.h>
 #include <random>
 #include <iomanip>
@@ -60,11 +60,11 @@ public:
 
             if (!(isNumber && isNum(xStr))) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << xStr + " - не число!" << endl << endl;
+                cout << endl << xStr + " - РЅРµ С‡РёСЃР»Рѕ!" << endl << endl;
             }
             else if (result > max || result < min) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << endl << "Число должно лежать в промежутке [" << min << "; " << max << "]!" << endl << endl;
+                cout << endl << "Р§РёСЃР»Рѕ РґРѕР»Р¶РЅРѕ Р»РµР¶Р°С‚СЊ РІ РїСЂРѕРјРµР¶СѓС‚РєРµ [" << min << "; " << max << "]!" << endl << endl;
             }
             else
                 break;
@@ -78,9 +78,9 @@ public:
 class MyQuestion {
 
 public:
-    const string QUESTION_RANDOM_DATA = "Сгенерировать данные случайным образом [y/n]?";
-    const string QUESTION_IN_ORDER_DATA = "Взять числа по порядку [y/n]?";
-    const string QUESTION_SHOW_CALC = "Показывать ход вычислений [y/n]?";
+    const string QUESTION_RANDOM_DATA = "РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј [y/n]?";
+    const string QUESTION_IN_ORDER_DATA = "Р’Р·СЏС‚СЊ С‡РёСЃР»Р° РїРѕ РїРѕСЂСЏРґРєСѓ [y/n]?";
+    const string QUESTION_SHOW_CALC = "РџРѕРєР°Р·С‹РІР°С‚СЊ С…РѕРґ РІС‹С‡РёСЃР»РµРЅРёР№ [y/n]?";
 
     bool isQuestion(string textQuestion) {
 
@@ -99,11 +99,11 @@ public:
 
     double GetRandom(int min, int max) {
 
-        random_device random_device; // Источник энтропии.
-        mt19937 generator(random_device()); // Генератор случайных чисел.
+        random_device random_device; // РСЃС‚РѕС‡РЅРёРє СЌРЅС‚СЂРѕРїРёРё.
+        mt19937 generator(random_device()); // Р“РµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР».
 
-        // (Здесь берется одно инициализирующее значение, можно брать больше)
-        uniform_int_distribution<> distribution(min, max); // Равномерное распределение [min, max]
+        // (Р—РґРµСЃСЊ Р±РµСЂРµС‚СЃСЏ РѕРґРЅРѕ РёРЅРёС†РёР°Р»РёР·РёСЂСѓСЋС‰РµРµ Р·РЅР°С‡РµРЅРёРµ, РјРѕР¶РЅРѕ Р±СЂР°С‚СЊ Р±РѕР»СЊС€Рµ)
+        uniform_int_distribution<> distribution(min, max); // Р Р°РІРЅРѕРјРµСЂРЅРѕРµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ [min, max]
 
         return distribution(generator); 
       
@@ -150,7 +150,7 @@ public:
         MyInput myInput = *new MyInput();
 
         for (int i = 0; i < n; ++i)
-            arr.push_back(myInput.InputIntData("Введите целое число (" + to_string(i + 1) + " из " + to_string(n) + "): ", minValue, maxValue));
+            arr.push_back(myInput.InputIntData("Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ (" + to_string(i + 1) + " РёР· " + to_string(n) + "): ", minValue, maxValue));
 
         return arr;
     }
@@ -173,7 +173,7 @@ public:
 
     vector <int> CreateArray() {
         MyInput myInput = *new MyInput();
-        int size = myInput.InputIntData("Сколько элементов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COUNT_VALUE) + "]: ", MIN_COUNT, MAX_COUNT, DEFAULT_COUNT_VALUE);
+        int size = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РјР°СЃСЃРёРІРµ? [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_COUNT_VALUE) + "]: ", MIN_COUNT, MAX_COUNT, DEFAULT_COUNT_VALUE);
         return CreateArray(size);
     }
 
@@ -282,7 +282,7 @@ public:
 
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < m; ++j) {
-                arr[i][j] = myInput.InputIntData("Введите целое число (" + to_string(num) + " из " + to_string(size) + "): ", minValue, maxValue);
+                arr[i][j] = myInput.InputIntData("Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ (" + to_string(num) + " РёР· " + to_string(size) + "): ", minValue, maxValue);
                 ++num;
             }
 
@@ -317,8 +317,8 @@ public:
     vector <vector <int>> CreateArray() {
 
         MyInput myInput = *new MyInput();
-        int n = myInput.InputIntData("Сколько строк должно быть в массиве? [по умолчанию " + to_string(DEFAULT_ROW)  + "]: ", MIN_ROW, MAX_ROW, DEFAULT_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в массиве? [по умолчанию " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_COL);
+        int n = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ СЃС‚СЂРѕРє РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РјР°СЃСЃРёРІРµ? [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_ROW)  + "]: ", MIN_ROW, MAX_ROW, DEFAULT_ROW);
+        int m = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ СЃС‚РѕР»Р±С†РѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РјР°СЃСЃРёРІРµ? [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_COL);
 
         return CreateArray(n, m);
     }
@@ -429,11 +429,11 @@ private:
             if (!isEqal) {
                 if (i == indexMinElem) {
                     SetConsoleTextAttribute(handleConsole, Green);
-                    info = " - минимальный элемент";
+                    info = " - РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚";
                 }
                 else if (i == indexMaxElem) {
                     SetConsoleTextAttribute(handleConsole, Green);
-                    info = " - максимальный элемент";
+                    info = " - РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚";
                 }
                 else {
                     SetConsoleTextAttribute(handleConsole, Yellow);
@@ -451,7 +451,7 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Поменять местали максимальный и минимальный элемент массива." << endl << endl;
+        cout << "РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Рё РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°." << endl << endl;
 
         MyArray myArray = *new MyArray();
         vector<int> arr = myArray.CreateArray();
@@ -463,18 +463,18 @@ public:
 
         if (isEqal) {
             SetConsoleTextAttribute(handleConsole, Blue);
-            cout << "Все элементы массива одинаковы!" << endl << endl;
+            cout << "Р’СЃРµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° РѕРґРёРЅР°РєРѕРІС‹!" << endl << endl;
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный массив:" << endl;
+        cout << "РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
         PrintArray(arr, indexMinElem, indexMaxElem, isEqal);
 
         if (!isEqal) {
 
             SetConsoleTextAttribute(handleConsole, Blue);
-            cout << endl << "Преобразованный массив:" << endl;
+            cout << endl << "РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
             arr = myArray.Swap(arr, indexMinElem, indexMaxElem);
 
@@ -507,29 +507,29 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Вывести на экран только те его компоненты, которые отклоняются от арифметического" << endl;
-        cout << "среднего элементов вектора не более чем на заданную величину E." << endl << endl;
+        cout << "Р’С‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ С‚РѕР»СЊРєРѕ С‚Рµ РµРіРѕ РєРѕРјРїРѕРЅРµРЅС‚С‹, РєРѕС‚РѕСЂС‹Рµ РѕС‚РєР»РѕРЅСЏСЋС‚СЃСЏ РѕС‚ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРіРѕ" << endl;
+        cout << "СЃСЂРµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚РѕРІ РІРµРєС‚РѕСЂР° РЅРµ Р±РѕР»РµРµ С‡РµРј РЅР° Р·Р°РґР°РЅРЅСѓСЋ РІРµР»РёС‡РёРЅСѓ E." << endl << endl;
 
         MyArray myArray = *new MyArray();
         vector<int> arr = myArray.CreateArray();
 
         MyInput myInput = *new MyInput();
 
-        int e = myInput.InputIntData("Введите величину отклонения Е: [по умолчанию " + to_string(DEFAULT_VALUE) + "]", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
+        int e = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РІРµР»РёС‡РёРЅСѓ РѕС‚РєР»РѕРЅРµРЅРёСЏ Р•: [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_VALUE) + "]", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << endl << "Величина отклонения Е: " << e << endl;
+        cout << endl << "Р’РµР»РёС‡РёРЅР° РѕС‚РєР»РѕРЅРµРЅРёСЏ Р•: " << e << endl;
 
         double average = getAverage(arr);
-        cout << "Среднее арифмитическое элементов вектора: " << average << endl;
+        cout << "РЎСЂРµРґРЅРµРµ Р°СЂРёС„РјРёС‚РёС‡РµСЃРєРѕРµ СЌР»РµРјРµРЅС‚РѕРІ РІРµРєС‚РѕСЂР°: " << average << endl;
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный вектор К:" << endl << endl;
+        cout << "РСЃС…РѕРґРЅС‹Р№ РІРµРєС‚РѕСЂ Рљ:" << endl << endl;
 
         myArray.PrintArray(arr);
 
         SetConsoleTextAttribute(handleConsole, Green);
-        cout << "\nВычисления:" << endl;
+        cout << "\nР’С‹С‡РёСЃР»РµРЅРёСЏ:" << endl;
 
         string sign = "", info = "", symbol = "";
         int size = arr.size();
@@ -559,10 +559,10 @@ public:
             else {
                 SetConsoleTextAttribute(handleConsole, Red);
                 sign = " > ";
-                symbol = "не";
+                symbol = "РЅРµ";
             }
 
-            info = " | " + to_string(arr[i]) + " - " + to_string(average) + " | = " + to_string(arr[i] - average) + " = " + to_string(check) + sign + to_string(e) + " " + symbol + " подходит по условию задачи";
+            info = " | " + to_string(arr[i]) + " - " + to_string(average) + " | = " + to_string(arr[i] - average) + " = " + to_string(check) + sign + to_string(e) + " " + symbol + " РїРѕРґС…РѕРґРёС‚ РїРѕ СѓСЃР»РѕРІРёСЋ Р·Р°РґР°С‡Рё";
 
             cout << arr[i] << info << endl;
         }
@@ -571,7 +571,7 @@ public:
 
         if (count != 0) {
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "\nЭлементы вектора К отвечающие условию задачи (" << count << " из " << size << ")" << endl;
+            cout << "\nР­Р»РµРјРµРЅС‚С‹ РІРµРєС‚РѕСЂР° Рљ РѕС‚РІРµС‡Р°СЋС‰РёРµ СѓСЃР»РѕРІРёСЋ Р·Р°РґР°С‡Рё (" << count << " РёР· " << size << ")" << endl;
 
             SetConsoleTextAttribute(handleConsole, Yellow);
 
@@ -580,7 +580,7 @@ public:
         }
         else {
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "\nНи один элемент вектора К не отвечает условию задачи!" << endl;
+            cout << "\nРќРё РѕРґРёРЅ СЌР»РµРјРµРЅС‚ РІРµРєС‚РѕСЂР° Рљ РЅРµ РѕС‚РІРµС‡Р°РµС‚ СѓСЃР»РѕРІРёСЋ Р·Р°РґР°С‡Рё!" << endl;
         }
 
 
@@ -602,7 +602,7 @@ private:
             else
                 SetConsoleTextAttribute(handleConsole, White);
 
-            cout << "[" << i << "] " << arr[i] << endl; //форматированный вывод
+            cout << "[" << i << "] " << arr[i] << endl; //С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅС‹Р№ РІС‹РІРѕРґ
         }
     }
 
@@ -612,7 +612,7 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Поменять местали указанные элементы массива." << endl << endl;
+        cout << "РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё СѓРєР°Р·Р°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°." << endl << endl;
 
         MyArray myArray = *new MyArray();
         vector<int> arr = myArray.CreateArray();
@@ -624,12 +624,12 @@ public:
 
         while (true) {
 
-            index1 = myInput.InputIntData("Введите индекс №1: ", 0, size - 1);
-            index2 = myInput.InputIntData("Введите индекс №2: ", 0, size - 1);
+            index1 = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РёРЅРґРµРєСЃ в„–1: ", 0, size - 1);
+            index2 = myInput.InputIntData("Р’РІРµРґРёС‚Рµ РёРЅРґРµРєСЃ в„–2: ", 0, size - 1);
 
             if (index1 == index2) {
                 SetConsoleTextAttribute(handleConsole, Red);
-                cout << "Индексы не должны совпадать!" << endl << endl;
+                cout << "РРЅРґРµРєСЃС‹ РЅРµ РґРѕР»Р¶РЅС‹ СЃРѕРІРїР°РґР°С‚СЊ!" << endl << endl;
             }
             else {
                 SetConsoleTextAttribute(handleConsole, White);
@@ -639,14 +639,14 @@ public:
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << endl << "Исходный массив:" << endl;
+        cout << endl << "РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
         printArray(arr, index1, index2);
 
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << endl << "Поменять местали элементы массива под индексами " << index1 << " и " << index2 << endl << endl;
-        cout << "Преобразованный массив:" << endl;
+        cout << endl << "РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° РїРѕРґ РёРЅРґРµРєСЃР°РјРё " << index1 << " Рё " << index2 << endl << endl;
+        cout << "РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
         arr = myArray.Swap(arr, index1, index2);
 
@@ -705,13 +705,13 @@ private:
 
         if (isPrint) {
             SetConsoleTextAttribute(handleConsole, White);
-            cout << "\nВсего элементов в массиве:         " << col * row << endl;
+            cout << "\nР’СЃРµРіРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ:         " << col * row << endl;
 
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "Положительных элементов в массиве: " << countPositive << endl;
+            cout << "РџРѕР»РѕР¶РёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ: " << countPositive << endl;
 
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "Отрицательных элементов в массиве: " << countNegative << endl << endl;
+            cout << "РћС‚СЂРёС†Р°С‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ: " << countNegative << endl << endl;
         }
 
         return countNegative > countPositive;
@@ -759,29 +759,29 @@ public:
     void Init() {
 
         SetConsoleTextAttribute(handleConsole, White);
-        cout << "В матрице заменить все положительные элементы нулями," << endl;
-        cout << "если количество отрицательных элементов окажется больше, чем количество положительных элементов." << endl << endl;
+        cout << "Р’ РјР°С‚СЂРёС†Рµ Р·Р°РјРµРЅРёС‚СЊ РІСЃРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РЅСѓР»СЏРјРё," << endl;
+        cout << "РµСЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РѕРєР°Р¶РµС‚СЃСЏ Р±РѕР»СЊС€Рµ, С‡РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ." << endl << endl;
 
         MyMatrix myMatrix = *new MyMatrix();
         vector <vector <int>> matrix = myMatrix.CreateArray();
         
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "\nИсходная матрица:" << endl << endl;
+        cout << "\nРСЃС…РѕРґРЅР°СЏ РјР°С‚СЂРёС†Р°:" << endl << endl;
 
       
         if(isNegativeMatrix(matrix, true)){
 
             SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << "Количество отрицательных элементов больше, чем количество положительных элементов." << endl;
-            cout << "Заменяем все положительные элементы матрицы нулями." << endl << endl;
+            cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ, С‡РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ." << endl;
+            cout << "Р—Р°РјРµРЅСЏРµРј РІСЃРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РјР°С‚СЂРёС†С‹ РЅСѓР»СЏРјРё." << endl << endl;
 
-            cout << "Преобразованная матрица:" << endl << endl;
+            cout << "РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅР°СЏ РјР°С‚СЂРёС†Р°:" << endl << endl;
 
             GetMatrixPositiveToZero(matrix, true);
         }
         else {
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "Условие не выполняется оставляем все как есть" << endl;
+            cout << "РЈСЃР»РѕРІРёРµ РЅРµ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РѕСЃС‚Р°РІР»СЏРµРј РІСЃРµ РєР°Рє РµСЃС‚СЊ" << endl;
         }
 
     }
@@ -828,13 +828,13 @@ public:
     void Init() {
 
         SetConsoleTextAttribute(handleConsole, White);
-        cout << "Поменять местали максимальный и минимальный элементы матрицы." << endl;
+        cout << "РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Рё РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚С‹ РјР°С‚СЂРёС†С‹." << endl;
       
         MyMatrix myMatrix = *new MyMatrix();
         vector <vector <int>> matrix = myMatrix.CreateArray();
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "\nИсходная матрица:" << endl << endl;
+        cout << "\nРСЃС…РѕРґРЅР°СЏ РјР°С‚СЂРёС†Р°:" << endl << endl;
 
         MyMatrix::interval coordMinMax = myMatrix.GetCoordinateMinMax(matrix);
 
@@ -845,11 +845,11 @@ public:
 
         if (isEqal) {
             SetConsoleTextAttribute(handleConsole, Blue);
-            cout << "Все элементы массива одинаковы!" << endl << endl;
+            cout << "Р’СЃРµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° РѕРґРёРЅР°РєРѕРІС‹!" << endl << endl;
         }
 
         SetConsoleTextAttribute(handleConsole, Yellow);
-        cout << "Исходный массив:" << endl;
+        cout << "РСЃС…РѕРґРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
         printArray(matrix, coordMin, coordMax, isEqal);
 
@@ -859,14 +859,14 @@ public:
             int max = matrix[coordMax.n][coordMax.m];
 
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "\nМинимальный элемент массива:  [" << coordMin.n << "][" << coordMin.m << "] " << min << endl;
+            cout << "\nРњРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°:  [" << coordMin.n << "][" << coordMin.m << "] " << min << endl;
 
             SetConsoleTextAttribute(handleConsole, Green);
-            cout << "Максимальный элемент массива: [" << coordMax.n << "][" << coordMax.m << "] " << max << endl;
+            cout << "РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°: [" << coordMax.n << "][" << coordMax.m << "] " << max << endl;
 
 
             SetConsoleTextAttribute(handleConsole, Yellow);
-            cout << "\nПреобразованный массив:" << endl;
+            cout << "\nРџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ РјР°СЃСЃРёРІ:" << endl;
 
             matrix[coordMin.n][coordMin.m] = max;
             matrix[coordMax.n][coordMax.m] = min;
@@ -925,7 +925,7 @@ public:
         HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "Вычислить L-норму матрицы" << endl << endl;
+        cout << "Р’С‹С‡РёСЃР»РёС‚СЊ L-РЅРѕСЂРјСѓ РјР°С‚СЂРёС†С‹" << endl << endl;
 
         MyMatrix myMatrix = *new MyMatrix();
         vector <vector <int>> matrix = myMatrix.CreateArray();
@@ -939,7 +939,7 @@ public:
 
         int row = matrix.size();
         
-        string strLNorm = "L-норма = ";
+        string strLNorm = "L-РЅРѕСЂРјР° = ";
         string withModul = strLNorm;
         string modul = strLNorm;
 
@@ -1005,7 +1005,7 @@ private:
 
                 int result = 0;
 
-                //перемножаем
+                //РїРµСЂРµРјРЅРѕР¶Р°РµРј
                 int matrixCol = matrix[0].size();
                 for (int j = 0; j < matrixCol; ++j) {
 
@@ -1028,7 +1028,7 @@ private:
             }
 
             int GetTotal(vector <vector <int>> matrix, vector <int> vector, int i) {
-                // итоги
+                // РёС‚РѕРіРё
 
                 int matrixCol = matrix[0].size();
 
@@ -1141,8 +1141,8 @@ public:
         SetConsoleTextAttribute(handleConsole, White);
 
 
-        cout << "Для матрицы A и вектора X" << endl;
-        cout << "вычислить элементы вектора Z как скалярное произведение строки матрицы A на вектор X" << endl << endl;
+        cout << "Р”Р»СЏ РјР°С‚СЂРёС†С‹ A Рё РІРµРєС‚РѕСЂР° X" << endl;
+        cout << "РІС‹С‡РёСЃР»РёС‚СЊ СЌР»РµРјРµРЅС‚С‹ РІРµРєС‚РѕСЂР° Z РєР°Рє СЃРєР°Р»СЏСЂРЅРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ СЃС‚СЂРѕРєРё РјР°С‚СЂРёС†С‹ A РЅР° РІРµРєС‚РѕСЂ X" << endl << endl;
         
 
         MyQuestion myQuestion = *new MyQuestion();
@@ -1153,8 +1153,8 @@ public:
         MyMatrix myMatrix = *new MyMatrix();
         MyInput myInput = *new MyInput();
 
-        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_ROW) + "]", MIN_ROW, MAX_ROW, DEFAULT_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_COL) + "]", MIN_COL, MAX_COL, DEFAULT_COL);
+        int n = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ СЃС‚СЂРѕРє РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РјР°С‚СЂРёС†Рµ?: [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_ROW) + "]", MIN_ROW, MAX_ROW, DEFAULT_ROW);
+        int m = myInput.InputIntData("РЎРєРѕР»СЊРєРѕ СЃС‚РѕР»Р±С†РѕРІ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ РјР°С‚СЂРёС†Рµ?: [РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + to_string(DEFAULT_COL) + "]", MIN_COL, MAX_COL, DEFAULT_COL);
 
         vector <vector <int>> matrix;
         vector <int> Vector;
@@ -1164,10 +1164,10 @@ public:
             Vector = myArray.CreateRandomArray(m, MIN_ROW, MAX_ROW);
         }
         else {
-            cout << endl << "Ввод матрицы А" << endl;
+            cout << endl << "Р’РІРѕРґ РјР°С‚СЂРёС†С‹ Рђ" << endl;
             matrix = myMatrix.CreateInputArray(n, m, MIN_ROW, MAX_ROW);
 
-            cout << endl << "Ввод вектора X" << endl;
+            cout << endl << "Р’РІРѕРґ РІРµРєС‚РѕСЂР° X" << endl;
             Vector = myArray.CreateInputArray(m, MIN_ROW, MAX_ROW);
         }
 
@@ -1215,10 +1215,10 @@ public:
             }
         }
 
-        cout << "\nМатрица A:" << endl;
+        cout << "\nРњР°С‚СЂРёС†Р° A:" << endl;
         myMatrix.PrintMatrix(matrix);
 
-        cout << endl << "Вектор Х:" << endl;
+        cout << endl << "Р’РµРєС‚РѕСЂ РҐ:" << endl;
         myArray.PrintArray(Vector);
 
         cout << endl;
@@ -1236,7 +1236,7 @@ public:
             result = calcHide.getMultiply(matrix, Vector);
         }
 
-        cout << endl << "Результат произведения:" << endl;
+        cout << endl << "Р РµР·СѓР»СЊС‚Р°С‚ РїСЂРѕРёР·РІРµРґРµРЅРёСЏ:" << endl;
         myArray.PrintArray(result);
         
     }
@@ -1250,8 +1250,8 @@ int main()
 
     SetConsoleTextAttribute(handleConsole, White);
 
-    cout << "Тема 4. Структурный тип данных \"массив\"" << endl;
-    cout << "Ларионов Никита Юрьевич. гр. 110з" << endl;
+    cout << "РўРµРјР° 4. РЎС‚СЂСѓРєС‚СѓСЂРЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С… \"РјР°СЃСЃРёРІ\"" << endl;
+    cout << "Р›Р°СЂРёРѕРЅРѕРІ РќРёРєРёС‚Р° Р®СЂСЊРµРІРёС‡. РіСЂ. 110Р·" << endl;
 
     bool isGo = true;
     string select;
@@ -1260,25 +1260,25 @@ int main()
     {
         SetConsoleTextAttribute(handleConsole, White);
 
-        cout << "\nВведите номер задачи" << endl;
-        cout << "6)	Поменять местали максимальный и минимальный элементы массива." << endl << endl;
+        cout << "\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р·Р°РґР°С‡Рё" << endl;
+        cout << "6)	РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Рё РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°." << endl << endl;
 
-        cout << "16) Вывести на экран только те его компоненты, которые отклоняются от арифметического" << endl;
-        cout << "среднего элементов вектора не более чем на заданную величину." << endl << endl;
+        cout << "16) Р’С‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ С‚РѕР»СЊРєРѕ С‚Рµ РµРіРѕ РєРѕРјРїРѕРЅРµРЅС‚С‹, РєРѕС‚РѕСЂС‹Рµ РѕС‚РєР»РѕРЅСЏСЋС‚СЃСЏ РѕС‚ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРіРѕ" << endl;
+        cout << "СЃСЂРµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚РѕРІ РІРµРєС‚РѕСЂР° РЅРµ Р±РѕР»РµРµ С‡РµРј РЅР° Р·Р°РґР°РЅРЅСѓСЋ РІРµР»РёС‡РёРЅСѓ." << endl << endl;
 
-        cout << "26) Поменять местали указанные элементы массива." << endl << endl;
+        cout << "26) РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё СѓРєР°Р·Р°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°." << endl << endl;
 
-        cout << "36) В матрице заменить все положительные элементы нулями," << endl;
-        cout << "если количество отрицательных элементов окажется больше, чем количество положительных элементов." << endl << endl;
+        cout << "36) Р’ РјР°С‚СЂРёС†Рµ Р·Р°РјРµРЅРёС‚СЊ РІСЃРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РЅСѓР»СЏРјРё," << endl;
+        cout << "РµСЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РѕРєР°Р¶РµС‚СЃСЏ Р±РѕР»СЊС€Рµ, С‡РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ." << endl << endl;
 
-        cout << "46) Поменять местали максимальный и минимальный элементы матрицы." << endl << endl;
+        cout << "46) РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°Р»Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Рё РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚С‹ РјР°С‚СЂРёС†С‹." << endl << endl;
 
-        cout << "56) Вычислить L-норму матрицы" << endl << endl;
+        cout << "56) Р’С‹С‡РёСЃР»РёС‚СЊ L-РЅРѕСЂРјСѓ РјР°С‚СЂРёС†С‹" << endl << endl;
 
-        cout << "66) Для матрицы A и вектора X" << endl;
-        cout << "вычислить элементы вектора Z как скалярное произведение строки матрицы A на вектор X" << endl << endl;
+        cout << "66) Р”Р»СЏ РјР°С‚СЂРёС†С‹ A Рё РІРµРєС‚РѕСЂР° X" << endl;
+        cout << "РІС‹С‡РёСЃР»РёС‚СЊ СЌР»РµРјРµРЅС‚С‹ РІРµРєС‚РѕСЂР° Z РєР°Рє СЃРєР°Р»СЏСЂРЅРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ СЃС‚СЂРѕРєРё РјР°С‚СЂРёС†С‹ A РЅР° РІРµРєС‚РѕСЂ X" << endl << endl;
 
-        cout << endl << "Для выхода введите \"0\": ";
+        cout << endl << "Р”Р»СЏ РІС‹С…РѕРґР° РІРІРµРґРёС‚Рµ \"0\": ";
 
         select = GetLine();
 
@@ -1315,7 +1315,7 @@ int main()
         }
         else {
             SetConsoleTextAttribute(handleConsole, Red);
-            cout << "\nНекорректные данные!" << endl;
+            cout << "\nРќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ!" << endl;
             SetConsoleTextAttribute(handleConsole, White);
         }
 
