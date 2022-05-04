@@ -62,3 +62,18 @@
    <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/56-1.jpg">
 </p>
 </br>
+
+**66) Для матрицы A и вектора X вычислить элементы вектора Z как скалярное произведение строки матрицы A на вектор X**
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/66-1.jpg">
+   <p align="center">Показан процесс вычисления</p>
+</p>
+</br>
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/66-2.jpg">
+   <p align="center">Процесс вычисления скрыт</p>
+</p>
+</br>
+
