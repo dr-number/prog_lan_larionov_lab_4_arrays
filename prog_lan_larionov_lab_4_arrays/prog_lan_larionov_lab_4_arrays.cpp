@@ -1,15 +1,10 @@
 #include <iostream>
 #include <Windows.h>
-#include <string>
-#include <stdlib.h>
-#include <cctype>
-#include <conio.h>
 #include <random>
-#include <algorithm>
 #include <iomanip>
-#include <cmath>
 #include <vector>
 #include <random>
+#include <regex>
 
 using namespace std;
 HANDLE handleConsole;
@@ -35,7 +30,7 @@ class MyInput {
 
 public:
     bool isNum(string str) {
-        return str.find_first_not_of("-1234567890") == string::npos;
+        return regex_match(str, regex("^[-]?[0-9]*"));
     }
 
     int InputIntData(string text, int min, int max, int defaultValue = -1) {
@@ -92,7 +87,7 @@ public:
         cout << textQuestion << endl;
         string answer = GetLine();
 
-        transform(answer.begin(), answer.end(), answer.begin(), tolower);
+        transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
         return answer == "y" || answer == "";
     }
 };
