@@ -1153,8 +1153,8 @@ public:
         MyMatrix myMatrix = *new MyMatrix();
         MyInput myInput = *new MyInput();
 
-        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_ROW) + "]", MIN_ROW, MAX_ROW, DEFAULT_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_COL) + "]", MIN_COL, MAX_COL, DEFAULT_COL);
+        int n = myInput.InputIntData("Сколько строк должно быть в матрице? [по умолчанию " + to_string(DEFAULT_ROW) + "]: ", MIN_ROW, MAX_ROW, DEFAULT_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице? [по умолчанию " + to_string(DEFAULT_COL) + "]: ", MIN_COL, MAX_COL, DEFAULT_COL);
 
         vector <vector <int>> matrix;
         vector <int> Vector;
