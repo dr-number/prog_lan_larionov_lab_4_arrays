@@ -226,21 +226,21 @@ public:
 
 class MyMatrix {
 public:
-    int const MIN_VALUE = -10000;
-    int const MAX_VALUE = 10000;
+    static int const MIN_VALUE = -10000;
+    static int const MAX_VALUE = 10000;
 
-    int const DEFAULT_COUNT_VALUE = 20;
+    static int const DEFAULT_COUNT_VALUE = 20;
 
-    int const MIN_COL = 5;
-    int const MAX_COL = 10000;
+    static int const MIN_COL = 5;
+    static int const MAX_COL = 10000;
 
-    int const MIN_ROW = 5;
-    int const DEFAULT_ROW = 10;
+    static int const MIN_ROW = 5;
+    static int const DEFAULT_ROW = 10;
 
-    int const MAX_ROW = 10000;
-    int const DEFAULT_COL = 12;
+    static int const MAX_ROW = 10000;
+    static int const DEFAULT_COL = 12;
 
-    int const STR_WIDTH = 8;
+    static int const STR_WIDTH = 8;
 
     struct coordinate {
         public:
@@ -441,7 +441,7 @@ private:
                 }
             }
 
-            cout << "[" << i << "] " << arr[i] << info << endl; //форматированный вывод
+            cout << "[" << i << "] " << arr[i] << info << endl;
         }
     }
 
@@ -487,6 +487,10 @@ public:
 
 class Task16 {
 private:
+    const int MIN_VALUE = 0;
+    const int MAX_VALUE = 90000;
+    const int DEFAULT_VALUE = 2000;
+
     double getAverage(vector <int> arr) {
 
         double sum = 0;
@@ -510,10 +514,6 @@ public:
         vector<int> arr = myArray.CreateArray();
 
         MyInput myInput = *new MyInput();
-
-        const int MIN_VALUE = 0;
-        const int MAX_VALUE = 90000;
-        const int DEFAULT_VALUE = 2000;
 
         int e = myInput.InputIntData("Введите величину отклонения Е: [по умолчанию " + to_string(DEFAULT_VALUE) + "]", MIN_VALUE, MAX_VALUE, DEFAULT_VALUE);
 
@@ -967,6 +967,14 @@ public:
 
 class Task66 {
 private:
+    const int DEFAULT_ROW = MyMatrix::DEFAULT_ROW;
+    const int MIN_ROW = MyMatrix::MIN_ROW;
+    const int MAX_ROW = MyMatrix::MAX_ROW;
+
+    const int DEFAULT_COL = MyMatrix::DEFAULT_COL;
+    const int MIN_COL = MyMatrix::MIN_COL;
+    const int MAX_COL = MyMatrix::MAX_COL;
+
     class CalcHide {
     public:
         vector <int> getMultiply(vector <vector <int>> matrix, vector <int> Vector) {
@@ -1145,22 +1153,22 @@ public:
         MyMatrix myMatrix = *new MyMatrix();
         MyInput myInput = *new MyInput();
 
-        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: [по умолчанию " + to_string(myMatrix.DEFAULT_ROW) + "]", myMatrix.MIN_ROW, myMatrix.MAX_ROW, myMatrix.DEFAULT_ROW);
-        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: [по умолчанию " + to_string(myMatrix.DEFAULT_COL) + "]", myMatrix.MIN_COL, myMatrix.MAX_COL, myMatrix.DEFAULT_COL);
+        int n = myInput.InputIntData("Сколько строк должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_ROW) + "]", MIN_ROW, MAX_ROW, DEFAULT_ROW);
+        int m = myInput.InputIntData("Сколько столбцов должно быть в матрице?: [по умолчанию " + to_string(DEFAULT_COL) + "]", MIN_COL, MAX_COL, DEFAULT_COL);
 
         vector <vector <int>> matrix;
         vector <int> Vector;
 
         if (isRandom) {
-            matrix = myMatrix.CreateRandomArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
-            Vector = myArray.CreateRandomArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            matrix = myMatrix.CreateRandomArray(n, m, MIN_ROW, MAX_ROW);
+            Vector = myArray.CreateRandomArray(m, MIN_ROW, MAX_ROW);
         }
         else {
             cout << endl << "Ввод матрицы А" << endl;
-            matrix = myMatrix.CreateInputArray(n, m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            matrix = myMatrix.CreateInputArray(n, m, MIN_ROW, MAX_ROW);
 
             cout << endl << "Ввод вектора X" << endl;
-            Vector = myArray.CreateInputArray(m, myMatrix.MIN_ROW, myMatrix.MAX_ROW);
+            Vector = myArray.CreateInputArray(m, MIN_ROW, MAX_ROW);
         }
 
      
