@@ -50,3 +50,9 @@
    <p align="center">Отрицательных элементов меньше, чем положительных</p>
 </p>
 </br>
+
+**46) Поменять местали максимальный и минимальный элементы матрицы.**
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/46-1.jpg">
+</p>
+</br>
