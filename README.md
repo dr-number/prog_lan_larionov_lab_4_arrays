@@ -1,9 +1,9 @@
 ## ТЕМА 4. СТРУКТУРНЫЙ ТИП ДАННЫХ "МАССИВ"
 
-**6)	6)	Поменять местали максимальный и минимальный элементы массива.**
+**6)	Поменять местали максимальный и минимальный элементы массива.**
 <figure>
    <p align="center">
-      <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/16-1.jpg">
+      <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/6-1.jpg">
    </p>
 </figure>
 
