@@ -32,3 +32,22 @@
 </p>
 </br>
 
+**36) В матрице заменить все положительные элементы нулями, если количество отрицательных элементов окажется больше, чем количество положительных элементов.**
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/36-1.jpg">
+   <p align="center">Отрицательных элементов больше, чем положительных</p>
+</p>
+</br>
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/36-2.jpg">
+   <p align="center">Количество отрицательных и положительных элементов совпадает</p>
+</p>
+</br>
+
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/36-3.jpg">
+   <p align="center">Отрицательных элементов меньше, чем положительных</p>
+</p>
+</br>
