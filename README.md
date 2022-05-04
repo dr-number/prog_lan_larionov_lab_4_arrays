@@ -56,3 +56,9 @@
    <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/46-1.jpg">
 </p>
 </br>
+
+**56) Вычислить L-норму матрицы**
+<p align="center">
+   <img src="https://github.com/dr-number/prog_lan_larionov_lab_4_arrays/blob/master/screens/56-1.jpg">
+</p>
+</br>
